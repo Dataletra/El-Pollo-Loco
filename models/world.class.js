@@ -15,15 +15,12 @@ class World {
 		this.ctx = canvas.getContext("2d");
 		this.canvas = canvas;
 		this.draw();
-		console.log(
-			this.character.img,
-			this.character.x,
-			this.character.y,
-			this.character.height,
-			this.character.width,
-		);
+		this.setWorld();
 	}
 
+	setWorld() {
+		this.character.world = this;
+	}
 	draw() {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		this.addObjectsToMap(this.backgroundObjects);
