@@ -32,6 +32,14 @@ class Character extends MovableObject {
 	}
 	animate() {
 		setInterval(() => {
+			if (Keyboard.RIGHT) {
+				this.x += this.speed + 10;
+			} else if (Keyboard.LEFT) {
+				this.x -= this.speed + 10;
+			}
+		}, 1000 / 60);
+
+		setInterval(() => {
 			if (Keyboard.RIGHT || Keyboard.LEFT) {
 				console.log("TRUE");
 				let i = this.currentImage % this.IMAGES_WALKING.length;
@@ -44,7 +52,7 @@ class Character extends MovableObject {
 				this.img = this.imageCache[path];
 				this.currentImage++;
 			}
-		}, 100);
+		}, 50);
 	}
 
 	jump() {}
