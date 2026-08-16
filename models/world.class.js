@@ -3,13 +3,28 @@ class World {
 	enemies = [new Chicken(), new Chicken(), new Chicken()];
 	clouds = [new Cloud(), new Cloud()];
 	backgroundObjects = [
+		new BackgroundObject("assets/img/background/bgCielo-1.png", -719),
+		new BackgroundObject("assets/img/background/bg3-2.png", -719),
+		new BackgroundObject("assets/img/background/bg2-2.png", -719),
+		new BackgroundObject("assets/img/background/bg1-2.png", -719),
+
 		new BackgroundObject("assets/img/background/bgCielo-1.png", 0),
 		new BackgroundObject("assets/img/background/bg3-1.png", 0),
 		new BackgroundObject("assets/img/background/bg2-1.png", 0),
 		new BackgroundObject("assets/img/background/bg1-1.png", 0),
+
+		new BackgroundObject("assets/img/background/bgCielo-1.png", 719),
+		new BackgroundObject("assets/img/background/bg3-2.png", 719),
+		new BackgroundObject("assets/img/background/bg2-2.png", 719),
+		new BackgroundObject("assets/img/background/bg1-2.png", 719),
+		new BackgroundObject("assets/img/background/bgCielo-1.png", 719 * 2),
+		new BackgroundObject("assets/img/background/bg3-3.png", 719 * 2),
+		new BackgroundObject("assets/img/background/bg2-3.png", 719 * 2),
+		new BackgroundObject("assets/img/background/bg1-3.png", 719 * 2),
 	];
 	ctx;
 	canvas;
+	camera_x = 0;
 
 	constructor(canvas) {
 		this.ctx = canvas.getContext("2d");
@@ -23,11 +38,12 @@ class World {
 	}
 	draw() {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		this.ctx.translate(this.camera_x, 0);
 		this.addObjectsToMap(this.backgroundObjects);
 		this.addToMap(this.character);
 		this.addObjectsToMap(this.enemies);
 		this.addObjectsToMap(this.clouds);
-
+		this.ctx.translate(-this.camera_x, 0);
 		let self = this;
 
 		requestAnimationFrame(function () {
@@ -40,6 +56,16 @@ class World {
 		});
 	}
 	addToMap(mo) {
+		if (mo.otherDirection) {
+			this.ctx.save();
+			this.ctx.translate(mo.width, 0);
+			this.ctx.scale(-1, 1);
+			mo.x = mo.x * -1;
+		}
 		this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+		if (mo.otherDirection) {
+			mo.x = mo.x * -1;
+			this.ctx.restore();
+		}
 	}
 }
