@@ -22,7 +22,6 @@ class Character extends MovableObject {
 		"./assets/img/character/idle-9.png",
 		"./assets/img/character/idle-10.png",
 	];
-	currentImage = 0;
 	constructor() {
 		super();
 		super.loadImage("./assets/img/character/idle-1.png");
@@ -32,8 +31,6 @@ class Character extends MovableObject {
 	}
 	animate() {
 		setInterval(() => {
-			console.log(this.world.level.level_end_x);
-
 			if (Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
 				this.x += this.speed + 10;
 				this.otherDirection = false;
@@ -47,15 +44,9 @@ class Character extends MovableObject {
 		setInterval(() => {
 			if (Keyboard.RIGHT || Keyboard.LEFT) {
 				console.log("TRUE");
-				let i = this.currentImage % this.IMAGES_WALKING.length;
-				let path = this.IMAGES_WALKING[i];
-				this.img = this.imageCache[path];
-				this.currentImage++;
+				this.playAnimation(this.IMAGES_WALKING);
 			} else {
-				let i = this.currentImage % this.IMAGES_IDLE.length;
-				let path = this.IMAGES_IDLE[i];
-				this.img = this.imageCache[path];
-				this.currentImage++;
+				this.playAnimation(this.IMAGES_IDLE);
 			}
 		}, 50);
 	}
