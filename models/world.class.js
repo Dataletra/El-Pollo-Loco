@@ -1,27 +1,8 @@
 class World {
 	character = new Character();
-	enemies = [new Chicken(), new Chicken(), new Chicken()];
-	clouds = [new Cloud(), new Cloud()];
-	backgroundObjects = [
-		new BackgroundObject("assets/img/background/bgCielo-1.png", -719),
-		new BackgroundObject("assets/img/background/bg3-2.png", -719),
-		new BackgroundObject("assets/img/background/bg2-2.png", -719),
-		new BackgroundObject("assets/img/background/bg1-2.png", -719),
-
-		new BackgroundObject("assets/img/background/bgCielo-1.png", 0),
-		new BackgroundObject("assets/img/background/bg3-1.png", 0),
-		new BackgroundObject("assets/img/background/bg2-1.png", 0),
-		new BackgroundObject("assets/img/background/bg1-1.png", 0),
-
-		new BackgroundObject("assets/img/background/bgCielo-1.png", 719),
-		new BackgroundObject("assets/img/background/bg3-2.png", 719),
-		new BackgroundObject("assets/img/background/bg2-2.png", 719),
-		new BackgroundObject("assets/img/background/bg1-2.png", 719),
-		new BackgroundObject("assets/img/background/bgCielo-1.png", 719 * 2),
-		new BackgroundObject("assets/img/background/bg3-3.png", 719 * 2),
-		new BackgroundObject("assets/img/background/bg2-3.png", 719 * 2),
-		new BackgroundObject("assets/img/background/bg1-3.png", 719 * 2),
-	];
+	enemies = level1.enemies;
+	clouds = level1.clouds;
+	backgroundObjects = level1.backgroundObjects;
 	ctx;
 	canvas;
 	camera_x = 0;
