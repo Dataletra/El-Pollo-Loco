@@ -1,6 +1,6 @@
 class Character extends MovableObject {
 	height = 280;
-	y = 55;
+	y = 150;
 	world;
 	IMAGES_WALKING = [
 		"./assets/img/character/walk-1.png",
@@ -56,17 +56,23 @@ class Character extends MovableObject {
 		}, 1000 / 60);
 
 		setInterval(() => {
-			if (Keyboard.RIGHT || Keyboard.LEFT) {
-				console.log("TRUE");
+			// 1. Handle Jump Trigger
+			if (Keyboard.UP && !this.isAboveGround()) {
+				this.jump();
+			}
+
+			// 2. Animations (Jumping takes top priority)
+			if (this.isAboveGround()) {
+				this.playAnimation(this.IMAGES_JUMPING);
+			} else if (Keyboard.RIGHT || Keyboard.LEFT) {
 				this.playAnimation(this.IMAGES_WALKING);
 			} else {
 				this.playAnimation(this.IMAGES_IDLE);
 			}
-			if (this.isAboveGround()) {
-				this.playAnimation(this.IMAGES_JUMPING);
-			}
-		}, 50);
+		}, 100);
 	}
 
-	jump() {}
+	jump() {
+		this.speedY = 30;
+	}
 }
