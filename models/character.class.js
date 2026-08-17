@@ -1,6 +1,6 @@
 class Character extends MovableObject {
 	height = 280;
-	y = 155;
+	y = 55;
 	world;
 	IMAGES_WALKING = [
 		"./assets/img/character/walk-1.png",
@@ -22,11 +22,25 @@ class Character extends MovableObject {
 		"./assets/img/character/idle-9.png",
 		"./assets/img/character/idle-10.png",
 	];
+	IMAGES_JUMPING = [
+		"assets/img/character/jump-1.png",
+		"assets/img/character/jump-2.png",
+		"assets/img/character/jump-3.png",
+		"assets/img/character/jump-4.png",
+		"assets/img/character/jump-5.png",
+		"assets/img/character/jump-6.png",
+		"assets/img/character/jump-7.png",
+		"assets/img/character/jump-8.png",
+		"assets/img/character/jump-9.png",
+	];
 	constructor() {
 		super();
 		super.loadImage("./assets/img/character/idle-1.png");
 		this.loadImages(this.IMAGES_WALKING);
 		this.loadImages(this.IMAGES_IDLE);
+		this.loadImages(this.IMAGES_JUMPING);
+
+		this.applyGravity();
 		this.animate();
 	}
 	animate() {
@@ -47,6 +61,9 @@ class Character extends MovableObject {
 				this.playAnimation(this.IMAGES_WALKING);
 			} else {
 				this.playAnimation(this.IMAGES_IDLE);
+			}
+			if (this.isAboveGround()) {
+				this.playAnimation(this.IMAGES_JUMPING);
 			}
 		}, 50);
 	}
