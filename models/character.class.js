@@ -46,22 +46,17 @@ class Character extends MovableObject {
 	animate() {
 		setInterval(() => {
 			if (Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-				this.x += this.speed + 10;
-				this.otherDirection = false;
+				this.moveRight();
 			} else if (Keyboard.LEFT && this.x > 0) {
-				this.x -= this.speed + 10;
-				this.otherDirection = true;
+				this.moveLeft();
 			}
 			this.world.camera_x = -this.x + 100;
 		}, 1000 / 60);
 
 		setInterval(() => {
-			// 1. Handle Jump Trigger
 			if (Keyboard.UP && !this.isAboveGround()) {
 				this.jump();
 			}
-
-			// 2. Animations (Jumping takes top priority)
 			if (this.isAboveGround()) {
 				this.playAnimation(this.IMAGES_JUMPING);
 			} else if (Keyboard.RIGHT || Keyboard.LEFT) {
