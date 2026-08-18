@@ -33,12 +33,22 @@ class Character extends MovableObject {
 		"assets/img/character/jump-8.png",
 		"assets/img/character/jump-9.png",
 	];
+	IMAGES_DEAD = [
+		"assets/img/character/dead-1.png",
+		"assets/img/character/dead-2.png",
+		"assets/img/character/dead-3.png",
+		"assets/img/character/dead-4.png",
+		"assets/img/character/dead-5.png",
+		"assets/img/character/dead-6.png",
+		"assets/img/character/dead-7.png",
+	];
 	constructor() {
 		super();
 		super.loadImage("./assets/img/character/idle-1.png");
 		this.loadImages(this.IMAGES_WALKING);
 		this.loadImages(this.IMAGES_IDLE);
 		this.loadImages(this.IMAGES_JUMPING);
+		this.loadImages(this.IMAGES_DEAD);
 
 		this.applyGravity();
 		this.animate();
@@ -50,14 +60,16 @@ class Character extends MovableObject {
 			} else if (Keyboard.LEFT && this.x > 0) {
 				this.moveLeft();
 			}
+			if (Keyboard.UP && !this.isAboveGround()) {
+				this.jump();
+			}
 			this.world.camera_x = -this.x + 100;
 		}, 1000 / 60);
 
 		setInterval(() => {
-			if (Keyboard.UP && !this.isAboveGround()) {
-				this.jump();
-			}
-			if (this.isAboveGround()) {
+			if (this.isDead()) {
+				this.playAnimation(this.IMAGES_DEAD);
+			} else if (this.isAboveGround()) {
 				this.playAnimation(this.IMAGES_JUMPING);
 			} else if (Keyboard.RIGHT || Keyboard.LEFT) {
 				this.playAnimation(this.IMAGES_WALKING);

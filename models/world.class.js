@@ -19,6 +19,8 @@ class World {
 			this.level.enemies.forEach((enemy) => {
 				if (this.character.isColliding(enemy)) {
 					console.log("Collision: " + enemy);
+					this.character.hit();
+					console.log(this.character.isDead());
 				}
 			});
 		}, 200);

@@ -10,6 +10,7 @@ class MovableObject {
 	currentImage = 0;
 	speedY = 0;
 	acceleration = 2.5;
+	hitPoints = 100;
 	applyGravity() {
 		setInterval(() => {
 			if (this.isAboveGround() || this.speedY > 0) {
@@ -20,6 +21,16 @@ class MovableObject {
 				this.speedY = 0;
 			}
 		}, 1000 / 25);
+	}
+
+	hit() {
+		this.hitPoints -= 5;
+		console.log(this.hitPoints);
+		if (this.hitPoints < 0) this.hitPoints = 0;
+	}
+
+	isDead() {
+		return this.hitPoints == 0;
 	}
 
 	isAboveGround() {
