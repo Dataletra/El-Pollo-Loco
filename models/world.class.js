@@ -11,12 +11,23 @@ class World {
 		this.canvas = canvas;
 		this.setWorld();
 		this.draw();
-		console.log(this.level);
+		this.checkCollisions();
+	}
+
+	checkCollisions() {
+		setInterval(() => {
+			this.level.enemies.forEach((enemy) => {
+				if (this.character.isColliding(enemy)) {
+					console.log("Collision: " + enemy);
+				}
+			});
+		}, 200);
 	}
 
 	setWorld() {
 		this.character.world = this;
 	}
+
 	draw() {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		this.ctx.translate(this.camera_x, 0);
@@ -31,11 +42,13 @@ class World {
 			self.draw();
 		});
 	}
+
 	addObjectsToMap(objects) {
 		objects.forEach((o) => {
 			this.addToMap(o);
 		});
 	}
+
 	addToMap(mo) {
 		if (mo.otherDirection) {
 			this.flipImage(mo);
