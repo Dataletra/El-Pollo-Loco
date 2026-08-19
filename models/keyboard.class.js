@@ -3,4 +3,5 @@ class Keyboard {
 	static RIGHT = false;
 	static UP = false;
 	static DOWN = false;
+	static SPACE = false;
 }

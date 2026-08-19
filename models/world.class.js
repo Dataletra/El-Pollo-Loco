@@ -5,24 +5,39 @@ class World {
 	canvas;
 	camera_x = 0;
 	statusBar = new StatusBar();
+	throwableObjects = [];
 
 	constructor(canvas) {
 		this.ctx = canvas.getContext("2d");
 		this.canvas = canvas;
 		this.setWorld();
 		this.draw();
-		this.checkCollisions();
+		this.run();
 	}
 
-	checkCollisions() {
+	run() {
 		setInterval(() => {
-			this.level.enemies.forEach((enemy) => {
-				if (this.character.isColliding(enemy)) {
-					this.character.hit();
-					this.statusBar.setPercentage(this.character.hitPoints);
-				}
-			});
+			this.checkCollisions();
+			this.checkThrowObjects();
 		}, 200);
+	}
+
+	checkThrowObjects() {
+		if (Keyboard.SPACE) {
+			let bottle = new ThrowableObject(
+				this.character.x + 100,
+				this.character.y + 100,
+			);
+			this.throwableObjects.push(bottle);
+		}
+	}
+	checkCollisions() {
+		this.level.enemies.forEach((enemy) => {
+			if (this.character.isColliding(enemy)) {
+				this.character.hit();
+				this.statusBar.setPercentage(this.character.hitPoints);
+			}
+		});
 	}
 
 	setWorld() {
@@ -35,6 +50,7 @@ class World {
 		this.addObjectsToMap(this.level.backgroundObjects);
 		this.addToMap(this.character);
 		this.addObjectsToMap(this.level.enemies);
+		this.addObjectsToMap(this.throwableObjects);
 		this.addObjectsToMap(this.level.clouds);
 		this.ctx.translate(-this.camera_x, 0);
 		this.addToMap(this.statusBar);
