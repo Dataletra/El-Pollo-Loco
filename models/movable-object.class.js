@@ -49,16 +49,6 @@ class MovableObject extends DrawableObject {
 		this.otherDirection = true;
 	}
 
-	drawFrame(ctx) {
-		if (this instanceof Character || this instanceof Chicken) {
-			ctx.beginPath();
-			ctx.lineWidth = "5";
-			ctx.strokeStyle = "blue";
-			ctx.rect(this.x, this.y, this.width, this.height);
-			ctx.stroke();
-		}
-	}
-
 	playAnimation(ImageArray) {
 		let i = this.currentImage % ImageArray.length;
 		let path = ImageArray[i];

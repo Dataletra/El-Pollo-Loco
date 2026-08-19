@@ -1,10 +1,10 @@
 class World {
 	character = new Character();
 	level = level1;
-
 	ctx;
 	canvas;
 	camera_x = 0;
+	statusBar = new StatusBar();
 
 	constructor(canvas) {
 		this.ctx = canvas.getContext("2d");
@@ -18,9 +18,8 @@ class World {
 		setInterval(() => {
 			this.level.enemies.forEach((enemy) => {
 				if (this.character.isColliding(enemy)) {
-					console.log("Collision: " + enemy);
 					this.character.hit();
-					console.log(this.character.isDead());
+					this.statusBar.setPercentage(this.character.hitPoints);
 				}
 			});
 		}, 200);
@@ -38,6 +37,7 @@ class World {
 		this.addObjectsToMap(this.level.enemies);
 		this.addObjectsToMap(this.level.clouds);
 		this.ctx.translate(-this.camera_x, 0);
+		this.addToMap(this.statusBar);
 		let self = this;
 
 		requestAnimationFrame(function () {
