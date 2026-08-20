@@ -1,19 +1,41 @@
 class ThrowableObject extends MovableObject {
-	constructor(x, y) {
-		super().loadImage("assets/img/bottle/botella-1.png");
+	IMAGES_SPINNING = [
+		"assets/img/bottle/botella-1.png",
+		"assets/img/bottle/botella-2.png",
+		"assets/img/bottle/botella-3.png",
+		"assets/img/bottle/botella-4.png",
+	];
+
+	constructor(x, y, otherDirection) {
+		super();
+		this.loadImage("assets/img/bottle/botella-1.png");
+		this.loadImages(this.IMAGES_SPINNING);
+
 		this.x = x;
 		this.y = y;
 		this.height = 60;
 		this.width = 50;
-		this.throw(x, y);
+		this.otherDirection = otherDirection;
+		this.throw();
+		this.animate();
 	}
-	throw(x, y) {
-		this.x = x;
-		this.y = y;
+
+	throw() {
 		this.speedY = 30;
 		this.applyGravity();
+
 		setInterval(() => {
-			this.x += 10;
+			if (this.otherDirection) {
+				this.x -= 10;
+			} else {
+				this.x += 10;
+			}
 		}, 25);
+	}
+
+	animate() {
+		setInterval(() => {
+			this.playAnimation(this.IMAGES_SPINNING);
+		}, 100);
 	}
 }

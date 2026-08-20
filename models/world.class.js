@@ -25,17 +25,19 @@ class World {
 	checkThrowObjects() {
 		if (Keyboard.SPACE) {
 			let bottle = new ThrowableObject(
-				this.character.x + 100,
-				this.character.y + 100,
+				this.character.x + 40,
+				this.character.y + 150,
+				this.character.otherDirection,
 			);
 			this.throwableObjects.push(bottle);
 		}
 	}
 	checkCollisions() {
-		this.level.enemies.forEach((enemy, index) => {
+		// Enemy vs Character
+		this.level.enemies.forEach((enemy) => {
 			if (
 				this.character.isColliding(enemy) &&
-				this.character.speedY < 0 && // true ONLY if character actually is falling
+				this.character.speedY < 0 &&
 				!enemy.isDead()
 			) {
 				enemy.hit();
@@ -43,6 +45,17 @@ class World {
 				this.character.hit();
 				this.statusBar.setPercentage(this.character.hitPoints);
 			}
+		});
+
+		// 2. Bottle vs Enemy
+		this.throwableObjects.forEach((bottle, bottleIndex) => {
+			this.level.enemies.forEach((enemy) => {
+				if (bottle.isColliding(enemy) && !enemy.isDead()) {
+					enemy.hit();
+					// Remove the bottle so it doesn't hit multiple times
+					this.throwableObjects.splice(bottleIndex, 1);
+				}
+			});
 		});
 	}
 
