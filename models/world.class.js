@@ -6,6 +6,7 @@ class World {
 	camera_x = 0;
 	statusBar = new StatusBar();
 	throwableObjects = [];
+	lastThrown = 0;
 
 	constructor(canvas) {
 		this.ctx = canvas.getContext("2d");
@@ -23,15 +24,20 @@ class World {
 	}
 
 	checkThrowObjects() {
-		if (Keyboard.SPACE) {
+		let currentTime = new Date().getTime();
+		let timePassed = currentTime - this.lastThrown;
+		if (Keyboard.SPACE && timePassed > 1000) {
+			let offsetX = this.character.otherDirection ? -30 : 70;
 			let bottle = new ThrowableObject(
-				this.character.x + 40,
-				this.character.y + 150,
+				this.character.x + offsetX,
+				this.character.y + 100,
 				this.character.otherDirection,
 			);
 			this.throwableObjects.push(bottle);
+			this.lastThrown = currentTime;
 		}
 	}
+
 	checkCollisions() {
 		// Enemy vs Character
 		this.level.enemies.forEach((enemy) => {
