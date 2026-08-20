@@ -19,7 +19,7 @@ class World {
 		setInterval(() => {
 			this.checkCollisions();
 			this.checkThrowObjects();
-		}, 200);
+		}, 50);
 	}
 
 	checkThrowObjects() {
@@ -32,8 +32,14 @@ class World {
 		}
 	}
 	checkCollisions() {
-		this.level.enemies.forEach((enemy) => {
-			if (this.character.isColliding(enemy)) {
+		this.level.enemies.forEach((enemy, index) => {
+			if (
+				this.character.isColliding(enemy) &&
+				this.character.speedY < 0 && // true ONLY if character actually is falling
+				!enemy.isDead()
+			) {
+				enemy.hit();
+			} else if (this.character.isColliding(enemy) && !enemy.isDead()) {
 				this.character.hit();
 				this.statusBar.setPercentage(this.character.hitPoints);
 			}
