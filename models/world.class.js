@@ -4,7 +4,8 @@ class World {
 	ctx;
 	canvas;
 	camera_x = 0;
-	statusBar = new StatusBar();
+	healthBar = new HealthBar();
+	coinBar = new CoinBar();
 	throwableObjects = [];
 	lastThrown = 0;
 
@@ -49,7 +50,7 @@ class World {
 				enemy.hit();
 			} else if (this.character.isColliding(enemy) && !enemy.isDead()) {
 				this.character.hit();
-				this.statusBar.setPercentage(this.character.hitPoints);
+				this.healthBar.setPercentage(this.character.hitPoints);
 			}
 		});
 
@@ -75,10 +76,13 @@ class World {
 		this.addObjectsToMap(this.level.backgroundObjects);
 		this.addToMap(this.character);
 		this.addObjectsToMap(this.level.enemies);
+		this.addObjectsToMap(this.level.bottles);
 		this.addObjectsToMap(this.throwableObjects);
 		this.addObjectsToMap(this.level.clouds);
 		this.ctx.translate(-this.camera_x, 0);
-		this.addToMap(this.statusBar);
+		this.addToMap(this.healthBar);
+		this.addToMap(this.coinBar);
+
 		let self = this;
 
 		requestAnimationFrame(function () {

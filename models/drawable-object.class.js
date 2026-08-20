@@ -41,4 +41,12 @@ class DrawableObject {
 			ctx.stroke();
 		}
 	}
+	isColliding(mo) {
+		return (
+			this.x + this.width > mo.x && // Character right edge > Enemy left edge
+			this.x < mo.x + mo.width && // Character left edge < Enemy right edge
+			this.y + this.height > mo.y && // Character bottom edge > Enemy top edge
+			this.y < mo.y + mo.height // Character top edge < Enemy bottom edge
+		);
+	}
 }

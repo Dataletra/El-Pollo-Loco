@@ -28,4 +28,16 @@ const level1 = new Level(
 	],
 
 	2200,
+	[
+		new CollectableObject(),
+		new CollectableObject(),
+		new CollectableObject(),
+		new CollectableObject(),
+		new CollectableObject(),
+		new CollectableObject(),
+		new CollectableObject(),
+		new CollectableObject(),
+		new CollectableObject(),
+		new CollectableObject(),
+	],
 );

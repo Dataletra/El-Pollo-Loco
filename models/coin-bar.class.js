@@ -1,0 +1,16 @@
+class CoinBar extends StatusBar {
+	constructor() {
+		super(
+			[
+				"assets/img/bars/coin-bar-1.png",
+				"assets/img/bars/coin-bar-2.png",
+				"assets/img/bars/coin-bar-3.png",
+				"assets/img/bars/coin-bar-4.png",
+				"assets/img/bars/coin-bar-5.png",
+				"assets/img/bars/coin-bar-6.png",
+			],
+			10, // x
+			45, // y
+		);
+	}
+}
