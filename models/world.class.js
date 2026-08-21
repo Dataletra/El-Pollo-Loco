@@ -6,6 +6,8 @@ class World {
 	camera_x = 0;
 	healthBar = new HealthBar();
 	coinBar = new CoinBar();
+	coins = [];
+	bottles = [];
 	throwableObjects = [];
 	lastThrown = 0;
 
@@ -54,15 +56,32 @@ class World {
 			}
 		});
 
-		// 2. Bottle vs Enemy
+		// Bottle vs Enemy
 		this.throwableObjects.forEach((bottle, bottleIndex) => {
 			this.level.enemies.forEach((enemy) => {
 				if (bottle.isColliding(enemy) && !enemy.isDead()) {
 					enemy.hit();
-					// Remove the bottle so it doesn't hit multiple times
 					this.throwableObjects.splice(bottleIndex, 1);
 				}
 			});
+		});
+
+		// Collect Bottles
+		this.level.bottles.forEach((bottle, index) => {
+			if (this.character.isColliding(bottle)) {
+				this.bottles.push(bottle);
+				this.level.bottles.splice(index, 1);
+			}
+		});
+
+		// Collect Coins
+		this.level.coins.forEach((coin, index) => {
+			if (this.character.isColliding(coin)) {
+				this.coins.push(coin);
+				this.level.coins.splice(index, 1);
+				let coinPercentage = (this.coins.length / 10) * 100;
+				this.coinBar.setPercentage(coinPercentage);
+			}
 		});
 	}
 
@@ -77,6 +96,8 @@ class World {
 		this.addToMap(this.character);
 		this.addObjectsToMap(this.level.enemies);
 		this.addObjectsToMap(this.level.bottles);
+		this.addObjectsToMap(this.level.coins);
+
 		this.addObjectsToMap(this.throwableObjects);
 		this.addObjectsToMap(this.level.clouds);
 		this.ctx.translate(-this.camera_x, 0);
