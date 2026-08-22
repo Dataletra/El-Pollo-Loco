@@ -121,21 +121,29 @@ class World {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		this.ctx.translate(this.camera_x, 0);
 		this.addObjectsToMap(this.level.backgroundObjects);
+		this.addEntities();
+		this.addObjectsToMap(this.level.clouds);
+		this.ctx.translate(-this.camera_x, 0);
+		this.addHudElements();
+		let self = this;
+		requestAnimationFrame(function () {
+			self.draw();
+		});
+	}
+
+	addEntities() {
 		this.addToMap(this.character);
 		this.addObjectsToMap(this.level.enemies);
 		this.addObjectsToMap(this.level.bottles);
 		this.addObjectsToMap(this.level.coins);
 		this.addObjectsToMap(this.throwableObjects);
-		this.addObjectsToMap(this.level.clouds);
-		this.ctx.translate(-this.camera_x, 0);
+	}
+
+	addHudElements() {
 		this.addToMap(this.healthBar);
 		this.addToMap(this.coinBar);
 		this.addToMap(this.bottleBar);
 		this.addToMap(this.bossBar);
-		let self = this;
-		requestAnimationFrame(function () {
-			self.draw();
-		});
 	}
 
 	addObjectsToMap(objects) {
