@@ -74,4 +74,15 @@ class ImageHub {
 		],
 		DEAD: ["./assets/img/enemies/pollito-dead-1.png"],
 	};
+	static ENDBOSS = {
+		ALERT: [
+			"./assets/img/enemies/boss-alert-1.png",
+			"./assets/img/enemies/boss-alert-2.png",
+			"./assets/img/enemies/boss-alert-3.png",
+			"./assets/img/enemies/boss-alert-4.png",
+			"./assets/img/enemies/boss-alert-5.png",
+			"./assets/img/enemies/boss-alert-6.png",
+			"./assets/img/enemies/boss-alert-7.png",
+		],
+	};
 }
