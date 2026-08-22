@@ -3,20 +3,14 @@ class Chicken extends MovableObject {
 	height = 70;
 	width = 80;
 	hitPoints = 1;
-	IMAGES_WALKING = [
-		"./assets/img/enemies/gallina-1.png",
-		"./assets/img/enemies/gallina-2.png",
-		"./assets/img/enemies/gallina-3.png",
-	];
-	IMAGES_DEAD = ["./assets/img/enemies/gallina-dead-1.png"];
 	currentImage = 0;
 	constructor() {
 		super();
-		super.loadImage("./assets/img/enemies/gallina-1.png");
-		this.x = 200 + Math.random() * 500;
+		super.loadImage(ImageHub.CHICKEN.WALKING[0]);
+		this.x = 500 + Math.random() * 1200;
 		this.speed = 0.15 + Math.random() * 0.5;
-		this.loadImages(this.IMAGES_WALKING);
-		this.loadImages(this.IMAGES_DEAD);
+		this.loadImages(ImageHub.CHICKEN.WALKING);
+		this.loadImages(ImageHub.CHICKEN.DEAD);
 		this.animate();
 	}
 	animate() {
@@ -25,9 +19,9 @@ class Chicken extends MovableObject {
 		}, 1000 / 60);
 		setInterval(() => {
 			if (this.isDead()) {
-				this.playAnimation(this.IMAGES_DEAD);
+				this.playAnimation(ImageHub.CHICKEN.DEAD);
 			} else {
-				this.playAnimation(this.IMAGES_WALKING);
+				this.playAnimation(ImageHub.CHICKEN.WALKING);
 			}
 		}, 100);
 	}

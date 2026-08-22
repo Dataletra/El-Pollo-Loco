@@ -58,6 +58,14 @@ class ImageHub {
 			"assets/img/character/sleep-10.png",
 		],
 	};
+	static CHICKEN = {
+		WALKING: [
+			"./assets/img/enemies/gallina-1.png",
+			"./assets/img/enemies/gallina-2.png",
+			"./assets/img/enemies/gallina-3.png",
+		],
+		DEAD: ["./assets/img/enemies/gallina-dead-1.png"],
+	};
 	static POLLITO = {
 		WALKING: [
 			"./assets/img/enemies/pollito-1.png",

@@ -1,13 +1,13 @@
 class World {
 	character = new Character();
-	level = level1;
-	ctx;
-	canvas;
-	camera_x = 0;
 	healthBar = new HealthBar();
 	coinBar = new CoinBar();
 	bottleBar = new BottleBar();
 	bossBar = new BossBar();
+	level = level1;
+	ctx;
+	canvas;
+	camera_x = 0;
 	coins = [];
 	bottles = [];
 	throwableObjects = [];
