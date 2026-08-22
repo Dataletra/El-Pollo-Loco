@@ -1,6 +1,7 @@
 class Character extends MovableObject {
 	height = 280;
 	y = 150;
+	lastInput = 0;
 	world;
 	IMAGES_WALKING = [
 		"./assets/img/character/walk-1.png",
@@ -47,6 +48,18 @@ class Character extends MovableObject {
 		"assets/img/character/hurt-2.png",
 		"assets/img/character/hurt-3.png",
 	];
+	IMAGES_SLEEPING = [
+		"assets/img/character/sleep-1.png",
+		"assets/img/character/sleep-2.png",
+		"assets/img/character/sleep-3.png",
+		"assets/img/character/sleep-4.png",
+		"assets/img/character/sleep-5.png",
+		"assets/img/character/sleep-6.png",
+		"assets/img/character/sleep-7.png",
+		"assets/img/character/sleep-8.png",
+		"assets/img/character/sleep-9.png",
+		"assets/img/character/sleep-10.png",
+	];
 	constructor() {
 		super();
 		super.loadImage("./assets/img/character/idle-1.png");
@@ -55,6 +68,8 @@ class Character extends MovableObject {
 		this.loadImages(this.IMAGES_JUMPING);
 		this.loadImages(this.IMAGES_DEAD);
 		this.loadImages(this.IMAGES_HURT);
+		this.loadImages(this.IMAGES_SLEEPING);
+
 		this.applyGravity();
 		this.animate();
 	}
@@ -72,6 +87,8 @@ class Character extends MovableObject {
 		}, 1000 / 60);
 
 		setInterval(() => {
+			let currentTime = new Date().getTime();
+			let timePassed = currentTime - this.lastInput;
 			if (this.isDead()) {
 				this.playAnimation(this.IMAGES_DEAD);
 			} else if (this.isHurt()) {
@@ -80,6 +97,9 @@ class Character extends MovableObject {
 				this.playAnimation(this.IMAGES_JUMPING);
 			} else if (Keyboard.RIGHT || Keyboard.LEFT) {
 				this.playAnimation(this.IMAGES_WALKING);
+				this.lastInput = currentTime;
+			} else if (timePassed > 10000) {
+				this.playAnimation(this.IMAGES_SLEEPING);
 			} else {
 				this.playAnimation(this.IMAGES_IDLE);
 			}
