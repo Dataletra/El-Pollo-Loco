@@ -10,7 +10,8 @@ class CoinBar extends StatusBar {
 				"assets/img/bars/coin-bar-1.png",
 			],
 			10, // x
-			45, // y
+			50, // y
 		);
+		this.loadImage("assets/img/bars/coin-bar-1.png");
 	}
 }
