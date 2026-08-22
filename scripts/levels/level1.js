@@ -32,6 +32,16 @@ const level1 = new Level(
 		new BackgroundObject("assets/img/background/bg3-2.png", 719 * 3),
 		new BackgroundObject("assets/img/background/bg2-2.png", 719 * 3),
 		new BackgroundObject("assets/img/background/bg1-2.png", 719 * 3),
+
+		new BackgroundObject("assets/img/background/bgCielo-1.png", 719 * 4),
+		new BackgroundObject("assets/img/background/bg3-2.png", 719 * 4),
+		new BackgroundObject("assets/img/background/bg2-2.png", 719 * 4),
+		new BackgroundObject("assets/img/background/bg1-2.png", 719 * 4),
+
+		new BackgroundObject("assets/img/background/bgCielo-1.png", 719 * 5),
+		new BackgroundObject("assets/img/background/bg3-2.png", 719 * 5),
+		new BackgroundObject("assets/img/background/bg2-2.png", 719 * 5),
+		new BackgroundObject("assets/img/background/bg1-2.png", 719 * 5),
 	],
 
 	2200,

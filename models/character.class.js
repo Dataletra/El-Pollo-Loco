@@ -3,72 +3,16 @@ class Character extends MovableObject {
 	y = 150;
 	lastInput = 0;
 	world;
-	IMAGES_WALKING = [
-		"./assets/img/character/walk-1.png",
-		"./assets/img/character/walk-2.png",
-		"./assets/img/character/walk-3.png",
-		"./assets/img/character/walk-4.png",
-		"./assets/img/character/walk-5.png",
-		"./assets/img/character/walk-6.png",
-	];
-	IMAGES_IDLE = [
-		"./assets/img/character/idle-1.png",
-		"./assets/img/character/idle-2.png",
-		"./assets/img/character/idle-3.png",
-		"./assets/img/character/idle-4.png",
-		"./assets/img/character/idle-5.png",
-		"./assets/img/character/idle-6.png",
-		"./assets/img/character/idle-7.png",
-		"./assets/img/character/idle-8.png",
-		"./assets/img/character/idle-9.png",
-		"./assets/img/character/idle-10.png",
-	];
-	IMAGES_JUMPING = [
-		"assets/img/character/jump-1.png",
-		"assets/img/character/jump-2.png",
-		"assets/img/character/jump-3.png",
-		"assets/img/character/jump-4.png",
-		"assets/img/character/jump-5.png",
-		"assets/img/character/jump-6.png",
-		"assets/img/character/jump-7.png",
-		"assets/img/character/jump-8.png",
-		"assets/img/character/jump-9.png",
-	];
-	IMAGES_DEAD = [
-		"assets/img/character/dead-1.png",
-		"assets/img/character/dead-2.png",
-		"assets/img/character/dead-3.png",
-		"assets/img/character/dead-4.png",
-		"assets/img/character/dead-5.png",
-		"assets/img/character/dead-6.png",
-		"assets/img/character/dead-7.png",
-	];
-	IMAGES_HURT = [
-		"assets/img/character/hurt-1.png",
-		"assets/img/character/hurt-2.png",
-		"assets/img/character/hurt-3.png",
-	];
-	IMAGES_SLEEPING = [
-		"assets/img/character/sleep-1.png",
-		"assets/img/character/sleep-2.png",
-		"assets/img/character/sleep-3.png",
-		"assets/img/character/sleep-4.png",
-		"assets/img/character/sleep-5.png",
-		"assets/img/character/sleep-6.png",
-		"assets/img/character/sleep-7.png",
-		"assets/img/character/sleep-8.png",
-		"assets/img/character/sleep-9.png",
-		"assets/img/character/sleep-10.png",
-	];
+
 	constructor() {
 		super();
 		super.loadImage("./assets/img/character/idle-1.png");
-		this.loadImages(this.IMAGES_WALKING);
-		this.loadImages(this.IMAGES_IDLE);
-		this.loadImages(this.IMAGES_JUMPING);
-		this.loadImages(this.IMAGES_DEAD);
-		this.loadImages(this.IMAGES_HURT);
-		this.loadImages(this.IMAGES_SLEEPING);
+		this.loadImages(ImageHub.PEPE.WALKING);
+		this.loadImages(ImageHub.PEPE.IDLE);
+		this.loadImages(ImageHub.PEPE.JUMP);
+		this.loadImages(ImageHub.PEPE.HURT);
+		this.loadImages(ImageHub.PEPE.DEAD);
+		this.loadImages(ImageHub.PEPE.SLEEPING);
 
 		this.applyGravity();
 		this.animate();
@@ -90,18 +34,20 @@ class Character extends MovableObject {
 			let currentTime = new Date().getTime();
 			let timePassed = currentTime - this.lastInput;
 			if (this.isDead()) {
-				this.playAnimation(this.IMAGES_DEAD);
+				this.playAnimation(ImageHub.PEPE.DEAD);
 			} else if (this.isHurt()) {
-				this.playAnimation(this.IMAGES_HURT);
+				this.playAnimation(ImageHub.PEPE.HURT);
+				this.lastInput = currentTime;
 			} else if (this.isAboveGround()) {
-				this.playAnimation(this.IMAGES_JUMPING);
+				this.playAnimation(ImageHub.PEPE.JUMP);
+				this.lastInput = currentTime;
 			} else if (Keyboard.RIGHT || Keyboard.LEFT) {
-				this.playAnimation(this.IMAGES_WALKING);
+				this.playAnimation(ImageHub.PEPE.WALKING);
 				this.lastInput = currentTime;
 			} else if (timePassed > 10000) {
-				this.playAnimation(this.IMAGES_SLEEPING);
+				this.playAnimation(ImageHub.PEPE.SLEEPING);
 			} else {
-				this.playAnimation(this.IMAGES_IDLE);
+				this.playAnimation(ImageHub.PEPE.IDLE);
 			}
 		}, 100);
 	}

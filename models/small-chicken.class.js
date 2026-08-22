@@ -13,7 +13,7 @@ class Pollito extends MovableObject {
 	constructor() {
 		super();
 		super.loadImage("./assets/img/enemies/pollito-1.png");
-		this.x = 200 + Math.random() * 500;
+		this.x = 500 + Math.random() * 1200;
 		this.speed = 0.15 + Math.random() * 0.5;
 		this.loadImages(this.IMAGES_WALKING);
 		this.loadImages(this.IMAGES_DEAD);
