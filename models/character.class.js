@@ -6,7 +6,7 @@ class Character extends MovableObject {
 
 	constructor() {
 		super();
-		super.loadImage("./assets/img/character/idle-1.png");
+		super.loadImage(ImageHub.PEPE.IDLE[0]);
 		this.loadImages(ImageHub.PEPE.WALKING);
 		this.loadImages(ImageHub.PEPE.IDLE);
 		this.loadImages(ImageHub.PEPE.JUMP);

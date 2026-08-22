@@ -58,4 +58,12 @@ class ImageHub {
 			"assets/img/character/sleep-10.png",
 		],
 	};
+	static POLLITO = {
+		WALKING: [
+			"./assets/img/enemies/pollito-1.png",
+			"./assets/img/enemies/pollito-2.png",
+			"./assets/img/enemies/pollito-3.png",
+		],
+		DEAD: ["./assets/img/enemies/pollito-dead-1.png"],
+	};
 }
