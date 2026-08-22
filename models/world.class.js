@@ -5,6 +5,7 @@ class World {
 	bottleBar = new BottleBar();
 	bossBar = new BossBar();
 	level = level1;
+	endboss = this.level.enemies[this.level.enemies.length - 1];
 	ctx;
 	canvas;
 	camera_x = 0;
@@ -12,6 +13,7 @@ class World {
 	bottles = [];
 	throwableObjects = [];
 	lastThrown = 0;
+	alrtDistToBoss = 300;
 
 	constructor(canvas) {
 		this.ctx = canvas.getContext("2d");
@@ -25,6 +27,7 @@ class World {
 		setInterval(() => {
 			this.checkCollisions();
 			this.checkThrowObjects();
+			this.checkCharacterDistanceToBoss();
 		}, 50);
 	}
 
@@ -42,6 +45,13 @@ class World {
 			this.lastThrown = currentTime;
 			this.bottles.length--;
 			this.updateBottleBarPercentage();
+		}
+	}
+
+	checkCharacterDistanceToBoss() {
+		let difference = this.endboss.x - this.character.x;
+		if (difference < this.alrtDistToBoss) {
+			Endboss.isAlerted = true;
 		}
 	}
 

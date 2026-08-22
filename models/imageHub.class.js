@@ -75,6 +75,22 @@ class ImageHub {
 		DEAD: ["./assets/img/enemies/pollito-dead-1.png"],
 	};
 	static ENDBOSS = {
+		DEAD: [
+			"./assets/img/enemies/boss-dead-1.png",
+			"./assets/img/enemies/boss-dead-2.png",
+			"./assets/img/enemies/boss-dead-3.png",
+		],
+		HURT: [
+			"./assets/img/enemies/boss-hurt-1.png",
+			"./assets/img/enemies/boss-hurt-2.png",
+			"./assets/img/enemies/boss-hurt-3.png",
+		],
+		WALK: [
+			"./assets/img/enemies/boss-walk-1.png",
+			"./assets/img/enemies/boss-walk-2.png",
+			"./assets/img/enemies/boss-walk-3.png",
+			"./assets/img/enemies/boss-walk-4.png",
+		],
 		ALERT: [
 			"./assets/img/enemies/boss-alert-1.png",
 			"./assets/img/enemies/boss-alert-2.png",
