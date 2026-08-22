@@ -7,6 +7,7 @@ class World {
 	healthBar = new HealthBar();
 	coinBar = new CoinBar();
 	bottleBar = new BottleBar();
+	bossBar = new BossBar();
 	coins = [];
 	bottles = [];
 	throwableObjects = [];
@@ -130,7 +131,7 @@ class World {
 		this.addToMap(this.healthBar);
 		this.addToMap(this.coinBar);
 		this.addToMap(this.bottleBar);
-
+		this.addToMap(this.bossBar);
 		let self = this;
 		requestAnimationFrame(function () {
 			self.draw();

@@ -1,18 +1,18 @@
-class Chicken extends MovableObject {
-	y = 360;
-	height = 70;
-	width = 80;
+class Pollito extends MovableObject {
+	y = 390;
+	height = 40;
+	width = 60;
 	hitPoints = 1;
 	IMAGES_WALKING = [
-		"./assets/img/enemies/gallina-1.png",
-		"./assets/img/enemies/gallina-2.png",
-		"./assets/img/enemies/gallina-3.png",
+		"./assets/img/enemies/pollito-1.png",
+		"./assets/img/enemies/pollito-2.png",
+		"./assets/img/enemies/pollito-3.png",
 	];
-	IMAGES_DEAD = ["./assets/img/enemies/gallina-dead-1.png"];
+	IMAGES_DEAD = ["./assets/img/enemies/pollito-dead-1.png"];
 	currentImage = 0;
 	constructor() {
 		super();
-		super.loadImage("./assets/img/enemies/gallina-1.png");
+		super.loadImage("./assets/img/enemies/pollito-1.png");
 		this.x = 200 + Math.random() * 500;
 		this.speed = 0.15 + Math.random() * 0.5;
 		this.loadImages(this.IMAGES_WALKING);

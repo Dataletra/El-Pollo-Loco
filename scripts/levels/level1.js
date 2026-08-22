@@ -1,5 +1,12 @@
 const level1 = new Level(
-	[new Chicken(), new Chicken(), new Chicken(), new Endboss()],
+	[
+		new Chicken(),
+		new Chicken(),
+		new Chicken(),
+		new Pollito(),
+		new Pollito(),
+		new Endboss(),
+	],
 	[new Cloud(), new Cloud()],
 	[
 		new BackgroundObject("assets/img/background/bgCielo-1.png", -719),
