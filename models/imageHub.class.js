@@ -100,5 +100,11 @@ class ImageHub {
 			"./assets/img/enemies/boss-alert-6.png",
 			"./assets/img/enemies/boss-alert-7.png",
 		],
+		EGG: [
+			"assets/img/egg/egg-1.png",
+			"assets/img/egg/egg-2.png",
+			"assets/img/egg/egg-3.png",
+			"assets/img/egg/egg-4.png",
+		],
 	};
 }

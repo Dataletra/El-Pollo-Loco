@@ -10,6 +10,9 @@ class Endboss extends MovableObject {
 		this.loadImage(ImageHub.ENDBOSS.ALERT[0]);
 		this.loadImages(ImageHub.ENDBOSS.ALERT);
 		this.loadImages(ImageHub.ENDBOSS.WALK);
+		this.loadImages(ImageHub.ENDBOSS.HURT);
+		this.loadImages(ImageHub.ENDBOSS.DEAD);
+		this.loadImages(ImageHub.ENDBOSS.EGG);
 		this.x = 2500;
 		this.animate();
 	}
