@@ -4,6 +4,7 @@ class Endboss extends MovableObject {
 	y = 55;
 	speed = 0.3;
 	static isAlerted;
+	attackMode = false;
 
 	constructor() {
 		super();
@@ -12,7 +13,6 @@ class Endboss extends MovableObject {
 		this.loadImages(ImageHub.ENDBOSS.WALK);
 		this.loadImages(ImageHub.ENDBOSS.HURT);
 		this.loadImages(ImageHub.ENDBOSS.DEAD);
-		this.loadImages(ImageHub.ENDBOSS.EGG);
 		this.x = 2500;
 		this.animate();
 	}
@@ -21,6 +21,7 @@ class Endboss extends MovableObject {
 		setInterval(() => {
 			if (Endboss.isAlerted) {
 				this.playAnimation(ImageHub.ENDBOSS.ALERT);
+				this.attackMode = true;
 			}
 		}, 100);
 		setInterval(() => {
@@ -34,6 +35,9 @@ class Endboss extends MovableObject {
 					this.playAnimation(ImageHub.ENDBOSS.WALK);
 			}
 		}, 100);
+	}
+	attack() {
+		return this.attackMode;
 	}
 }
 

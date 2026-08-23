@@ -133,12 +133,22 @@ class World {
 		this.addObjectsToMap(this.level.backgroundObjects);
 		this.addEntities();
 		this.addObjectsToMap(this.level.clouds);
+		this.renderEgg();
 		this.ctx.translate(-this.camera_x, 0);
 		this.addHudElements();
 		let self = this;
 		requestAnimationFrame(function () {
 			self.draw();
 		});
+	}
+
+	renderEgg() {
+		if (this.endboss.attack()) {
+			let egg = new Egg();
+			let eggs = [];
+			eggs.push(egg);
+			this.addObjectsToMap(eggs);
+		}
 	}
 
 	addEntities() {
