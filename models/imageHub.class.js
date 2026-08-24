@@ -100,6 +100,17 @@ class ImageHub {
 			"./assets/img/enemies/boss-alert-6.png",
 			"./assets/img/enemies/boss-alert-7.png",
 		],
+		ATTACK: [
+			"./assets/img/enemies/boss-attack-1.png",
+			"./assets/img/enemies/boss-attack-2.png",
+			"./assets/img/enemies/boss-attack-3.png",
+			"./assets/img/enemies/boss-attack-4.png",
+			"./assets/img/enemies/boss-attack-5.png",
+			"./assets/img/enemies/boss-attack-6.png",
+			"./assets/img/enemies/boss-attack-7.png",
+			"./assets/img/enemies/boss-attack-8.png",
+
+		],
 		EGG: [
 			"assets/img/egg/egg-1.png",
 			"assets/img/egg/egg-2.png",

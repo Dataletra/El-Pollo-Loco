@@ -13,7 +13,7 @@ class World {
 	bottles = [];
 	throwableObjects = [];
 	lastThrown = 0;
-	alrtDistToBoss = 300;
+	lastHit = 0;
 
 	constructor(canvas) {
 		this.ctx = canvas.getContext("2d");
@@ -27,7 +27,6 @@ class World {
 		setInterval(() => {
 			this.checkCollisions();
 			this.checkThrowObjects();
-			this.checkCharacterDistanceToBoss();
 		}, 50);
 	}
 
@@ -48,13 +47,6 @@ class World {
 		}
 	}
 
-	checkCharacterDistanceToBoss() {
-		let difference = this.endboss.x - this.character.x;
-		if (difference < this.alrtDistToBoss) {
-			Endboss.isAlerted = true;
-		}
-	}
-
 	checkCollisions() {
 		this.enemyVsCharacter();
 		this.enemyVsBottle();
@@ -71,8 +63,14 @@ class World {
 			) {
 				enemy.hit();
 			} else if (this.character.isColliding(enemy) && !enemy.isDead()) {
-				this.character.hit();
-				this.healthBar.setPercentage(this.character.hitPoints);
+				let currentTime = new Date().getTime();
+				let timePassed = currentTime - (this.lastHit || 0);
+
+				if (timePassed > 1000) {
+					this.character.hit();
+					this.healthBar.setPercentage(this.character.hitPoints);
+					this.lastHit = currentTime;
+				}
 			}
 		});
 	}
@@ -113,9 +111,13 @@ class World {
 		console.log("this.bottles.length: ", this.bottles.length);
 		this.bottleBar.setPercentage(bottlePercentage);
 	}
+
 	setWorld() {
 		this.character.world = this;
+		let boss = this.level.enemies.find(e => e instanceof Endboss);
+		if (boss) boss.world = this;
 	}
+
 
 	draw() {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

@@ -46,7 +46,8 @@ class DrawableObject {
 			this instanceof Character ||
 			this instanceof Chicken ||
 			this instanceof ThrowableObject ||
-			this instanceof Pollito
+			this instanceof Pollito ||
+			this instanceof Endboss
 		) {
 			this.getRealFrame();
 			ctx.beginPath();
