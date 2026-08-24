@@ -33,7 +33,7 @@ class MovableObject extends DrawableObject {
 		return timePassed < 0.5;
 	}
 	isDead() {
-		return this.hitPoints == 0;
+		return this.hitPoints <= 0;
 	}
 
 	isAboveGround() {

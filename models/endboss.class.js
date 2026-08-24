@@ -3,6 +3,8 @@ class Endboss extends MovableObject {
 	width = 250;
 	y = 55;
 	speed = 0.3;
+	hitPoints = 30;
+
 	isAlerted = false;
 	alrtDistToBoss = 300;
 	characterDistance = 2000;
@@ -25,7 +27,7 @@ class Endboss extends MovableObject {
 		this.loadImages(ImageHub.ENDBOSS.DEAD);
 		this.loadImages(ImageHub.ENDBOSS.ATTACK);
 
-		this.x = 400;
+		this.x = 1700;
 		this.animate();
 	}
 
@@ -47,10 +49,13 @@ class Endboss extends MovableObject {
 		}, 1000 / 60);
 
 		setInterval(() => {
+			if (this.isDead()) {
+				this.playAnimation(ImageHub.ENDBOSS.DEAD)
+			}
 			if (this.characterDistance < this.attackRange) {
 				this.playAnimation(ImageHub.ENDBOSS.ATTACK);
 				this.shouldMove = false;
-			} else {
+			} else if (!this.isDead()) {
 				this.shouldMove = true;
 				this.playAnimation(ImageHub.ENDBOSS.WALK)
 			}
