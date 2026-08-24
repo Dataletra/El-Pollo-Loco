@@ -3,9 +3,14 @@ class DrawableObject {
 	y = 280;
 	height = 150;
 	width = 100;
+	rX;
+	rY;
+	rW;
+	rH;
 	img;
 	imageCache = {};
 	currentImage = 0;
+	offset = { top: 0, bottom: 0, left: 0, right: 0 };
 
 	loadImage(path) {
 		this.img = new Image();
@@ -28,25 +33,36 @@ class DrawableObject {
 			this.imageCache[path] = img;
 		});
 	}
+
+	getRealFrame() {
+		this.rX = this.x + this.offset.left;
+		this.rY = this.y + this.offset.top;
+		this.rW = this.width - this.offset.left - this.offset.right;
+		this.rH = this.height - this.offset.top - this.offset.bottom;
+	}
+
 	drawFrame(ctx) {
 		if (
 			this instanceof Character ||
 			this instanceof Chicken ||
-			this instanceof ThrowableObject
+			this instanceof ThrowableObject ||
+			this instanceof Pollito
 		) {
+			this.getRealFrame();
 			ctx.beginPath();
 			ctx.lineWidth = "5";
 			ctx.strokeStyle = "blue";
-			ctx.rect(this.x, this.y, this.width, this.height);
+			ctx.rect(this.rX, this.rY, this.rW, this.rH);
 			ctx.stroke();
 		}
 	}
 	isColliding(mo) {
-		return (
-			this.x + this.width > mo.x && // Character right edge > Enemy left edge
-			this.x < mo.x + mo.width && // Character left edge < Enemy right edge
-			this.y + this.height > mo.y && // Character bottom edge > Enemy top edge
-			this.y < mo.y + mo.height // Character top edge < Enemy bottom edge
+		this.getRealFrame();
+		mo.getRealFrame();
+		return (this.rX + this.rW > mo.rX &&
+			this.rY + this.rH > mo.rY &&
+			this.rX < mo.rX + mo.rW &&
+			this.rY < mo.rY + mo.rH
 		);
 	}
 }

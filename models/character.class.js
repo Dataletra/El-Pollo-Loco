@@ -4,6 +4,12 @@ class Character extends MovableObject {
 	lastInput = 0;
 	world;
 
+	offset = {
+		top: 120,
+		right: 10,
+		bottom: 15,
+		left: 15,
+	}
 	constructor() {
 		super();
 		super.loadImage(ImageHub.PEPE.IDLE[0]);
@@ -16,6 +22,7 @@ class Character extends MovableObject {
 
 		this.applyGravity();
 		this.animate();
+		this.getRealFrame();
 	}
 	animate() {
 		setInterval(() => {

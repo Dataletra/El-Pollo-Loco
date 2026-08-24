@@ -108,16 +108,6 @@ class World {
 		});
 	}
 
-	collectBottle() {
-		this.level.bottles.forEach((bottle, index) => {
-			if (this.character.isColliding(bottle)) {
-				this.bottles.push(bottle);
-				this.level.bottles.splice(index, 1);
-				this.updateBottleBarPercentage();
-			}
-		});
-	}
-
 	updateBottleBarPercentage() {
 		let bottlePercentage = (this.bottles.length / 10) * 100;
 		console.log("this.bottles.length: ", this.bottles.length);
