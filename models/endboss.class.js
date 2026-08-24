@@ -4,7 +4,7 @@ class Endboss extends MovableObject {
 	y = 55;
 	speed = 0.3;
 	static isAlerted;
-	attackMode = false;
+	//attackMode = false;
 
 	constructor() {
 		super();
@@ -21,7 +21,7 @@ class Endboss extends MovableObject {
 		setInterval(() => {
 			if (Endboss.isAlerted) {
 				this.playAnimation(ImageHub.ENDBOSS.ALERT);
-				this.attackMode = true;
+				//this.attackMode = true;
 			}
 		}, 100);
 		setInterval(() => {
@@ -36,9 +36,9 @@ class Endboss extends MovableObject {
 			}
 		}, 100);
 	}
-	attack() {
-		return this.attackMode;
-	}
+	// attack() {
+	// 	return this.attackMode;
+	// }
 }
 
 //boss walks towards you all the time?
