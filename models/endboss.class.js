@@ -9,14 +9,14 @@ class Endboss extends MovableObject {
 	alrtDistToBoss = 300;
 	characterDistance = 2000;
 	world;
-	shouldMove;
+	shouldMove = true;
 	attackRange = 120;
 	offset = {
 		top: 120,
 		right: 10,
 		bottom: 15,
 		left: -30,
-	}
+	};
 
 	constructor() {
 		super();
@@ -31,51 +31,55 @@ class Endboss extends MovableObject {
 		this.animate();
 	}
 
-	checkDistanceToCharacter() {
+	checkDistanceToCharacter = () => {
 		this.characterDistance = this.x - this.world.character.x;
 
 		if (this.characterDistance < this.alrtDistToBoss) {
 			this.isAlerted = true;
 		}
-	}
+	};
 
+	updateMovement = () => {
+		if (!this.isDead() && this.isAlerted && this.shouldMove) {
+			this.x -= this.speed;
+		}
+	};
+
+	updateAnimation = () => {
+		if (this.isDead()) {
+			this.playAnimation(ImageHub.ENDBOSS.DEAD);
+			return;
+		}
+
+		if (this.characterDistance < this.attackRange) {
+			this.playAnimation(ImageHub.ENDBOSS.ATTACK);
+			this.shouldMove = false;
+		} else {
+			this.shouldMove = true;
+			this.playAnimation(ImageHub.ENDBOSS.WALK);
+		}
+	};
 
 	animate() {
-		setInterval(() => {
-			this.checkDistanceToCharacter();
-		}, 300);
-		setInterval(() => {
-			if (!this.isDead() && this.isAlerted && this.shouldMove) this.x -= this.speed;
-		}, 1000 / 60);
-
-		setInterval(() => {
-			if (this.isDead()) {
-				this.playAnimation(ImageHub.ENDBOSS.DEAD)
-			}
-			if (this.characterDistance < this.attackRange) {
-				this.playAnimation(ImageHub.ENDBOSS.ATTACK);
-				this.shouldMove = false;
-			} else if (!this.isDead()) {
-				this.shouldMove = true;
-				this.playAnimation(ImageHub.ENDBOSS.WALK)
-			}
-		}, 250);
+		IntervalHub.startInterval(this.checkDistanceToCharacter, 300);
+		IntervalHub.startInterval(this.updateMovement, 1000 / 60);
+		IntervalHub.startInterval(this.updateAnimation, 250);
 	}
-	// setInterval(() => {
-	// 	if (this.isAlerted) {
-	// 		this.playAnimation(ImageHub.ENDBOSS.ALERT);
-	// 		//this.attackMode = true;
-	// 	}
-	// }, 100);
-	// setInterval(() => {
-	// 	if (!this.isDead() && Endboss.isAlerted) this.x -= this.speed;
-	// }, 1000 / 60);
-	// setInterval(() => {
-	// 	if (this.isDead()) {
-	// 		this.playAnimation(ImageHub.ENDBOSS.DEAD);
-	// 	} else {
-	// 		if (!Endboss.isAlerted)
-	// 			this.playAnimation(ImageHub.ENDBOSS.WALK);
-	// 	}
-	// }, 100);
 }
+// setInterval(() => {
+// 	if (this.isAlerted) {
+// 		this.playAnimation(ImageHub.ENDBOSS.ALERT);
+// 		//this.attackMode = true;
+// 	}
+// }, 100);
+// setInterval(() => {
+// 	if (!this.isDead() && Endboss.isAlerted) this.x -= this.speed;
+// }, 1000 / 60);
+// setInterval(() => {
+// 	if (this.isDead()) {
+// 		this.playAnimation(ImageHub.ENDBOSS.DEAD);
+// 	} else {
+// 		if (!Endboss.isAlerted)
+// 			this.playAnimation(ImageHub.ENDBOSS.WALK);
+// 	}
+// }, 100);
