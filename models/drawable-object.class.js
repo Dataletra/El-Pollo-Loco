@@ -42,12 +42,12 @@ class DrawableObject {
 	}
 
 	drawFrame(ctx) {
-		if (
-			this instanceof Character ||
-			this instanceof Chicken ||
-			this instanceof ThrowableObject ||
-			this instanceof Pollito ||
-			this instanceof Endboss
+		if (false
+			// this instanceof Character ||
+			// this instanceof Chicken ||
+			// this instanceof ThrowableObject ||
+			// this instanceof Pollito ||
+			// this instanceof Endboss
 		) {
 			this.getRealFrame();
 			ctx.beginPath();

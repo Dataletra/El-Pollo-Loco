@@ -3,7 +3,7 @@ class Endboss extends MovableObject {
 	width = 250;
 	y = 55;
 	speed = 0.3;
-	hitPoints = 30;
+	hitPoints = 100;
 	isAlerted = false;
 	alrtDistToBoss = 300;
 	characterDistance = 2000;

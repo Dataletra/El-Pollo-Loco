@@ -14,6 +14,7 @@ class World {
 	throwableObjects = [];
 	lastThrown = 0;
 	lastHit = 0;
+	bossEncountered = false;
 
 	constructor(canvas) {
 		this.ctx = canvas.getContext("2d");
@@ -81,6 +82,8 @@ class World {
 				if (bottle.isColliding(enemy) && !enemy.isDead()) {
 					enemy.hit();
 					this.throwableObjects.splice(bottleIndex, 1);
+					this.bossBar.setPercentage(this.endboss.hitPoints);
+
 				}
 			});
 		});
@@ -91,6 +94,8 @@ class World {
 			if (this.character.isColliding(bottle)) {
 				this.bottles.push(bottle);
 				this.level.bottles.splice(index, 1);
+				this.updateBottleBarPercentage();
+
 			}
 		});
 	}
@@ -152,7 +157,10 @@ class World {
 		this.addToMap(this.healthBar);
 		this.addToMap(this.coinBar);
 		this.addToMap(this.bottleBar);
-		this.addToMap(this.bossBar);
+		if (this.endboss.characterDistance < 500 || this.bossEncountered) {
+			this.bossEncountered = true;
+			this.addToMap(this.bossBar);
+		}
 	}
 
 	addObjectsToMap(objects) {
