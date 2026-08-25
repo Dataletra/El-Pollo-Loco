@@ -7,7 +7,7 @@ class Character extends MovableObject {
 	offset = {
 		top: 120,
 		right: 10,
-		bottom: 15,
+		bottom: 0,
 		left: 15,
 	}
 	constructor() {
@@ -24,41 +24,42 @@ class Character extends MovableObject {
 		this.animate();
 		this.getRealFrame();
 	}
+	updateMovement = () => {
+		if (Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+			this.moveRight();
+		} else if (Keyboard.LEFT && this.x > 0) {
+			this.moveLeft();
+		}
+		if (Keyboard.UP && !this.isAboveGround()) {
+			this.jump();
+		}
+		this.world.camera_x = -this.x + 100;
+	};
+	updateAnimation = () => {
+		let currentTime = new Date().getTime();
+		let timePassed = currentTime - this.lastInput;
+		if (this.isDead()) {
+			this.playAnimation(ImageHub.PEPE.DEAD);
+		} else if (this.isHurt()) {
+			this.playAnimation(ImageHub.PEPE.HURT);
+			this.lastInput = currentTime;
+		} else if (this.isAboveGround()) {
+			this.playAnimation(ImageHub.PEPE.JUMP);
+			this.lastInput = currentTime;
+		} else if (Keyboard.RIGHT || Keyboard.LEFT) {
+			this.playAnimation(ImageHub.PEPE.WALKING);
+			this.lastInput = currentTime;
+		} else if (timePassed > 10000) {
+			this.playAnimation(ImageHub.PEPE.SLEEPING);
+		} else {
+			this.playAnimation(ImageHub.PEPE.IDLE);
+		}
+	};
+
 	animate() {
-		setInterval(() => {
-			if (Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-				this.moveRight();
-			} else if (Keyboard.LEFT && this.x > 0) {
-				this.moveLeft();
-			}
-			if (Keyboard.UP && !this.isAboveGround()) {
-				this.jump();
-			}
-			this.world.camera_x = -this.x + 100;
-		}, 1000 / 60);
-
-		setInterval(() => {
-			let currentTime = new Date().getTime();
-			let timePassed = currentTime - this.lastInput;
-			if (this.isDead()) {
-				this.playAnimation(ImageHub.PEPE.DEAD);
-			} else if (this.isHurt()) {
-				this.playAnimation(ImageHub.PEPE.HURT);
-				this.lastInput = currentTime;
-			} else if (this.isAboveGround()) {
-				this.playAnimation(ImageHub.PEPE.JUMP);
-				this.lastInput = currentTime;
-			} else if (Keyboard.RIGHT || Keyboard.LEFT) {
-				this.playAnimation(ImageHub.PEPE.WALKING);
-				this.lastInput = currentTime;
-			} else if (timePassed > 10000) {
-				this.playAnimation(ImageHub.PEPE.SLEEPING);
-			} else {
-				this.playAnimation(ImageHub.PEPE.IDLE);
-			}
-		}, 100);
+		IntervalHub.startInterval(this.updateMovement, 1000 / 60);
+		IntervalHub.startInterval(this.updateAnimation, 100);
 	}
-
 	jump() {
 		this.speedY = 30;
 	}

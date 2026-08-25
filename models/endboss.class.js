@@ -4,13 +4,13 @@ class Endboss extends MovableObject {
 	y = 55;
 	speed = 0.3;
 	hitPoints = 30;
-
 	isAlerted = false;
 	alrtDistToBoss = 300;
 	characterDistance = 2000;
 	world;
 	shouldMove = true;
 	attackRange = 120;
+	alertedLoop = 0;
 	offset = {
 		top: 120,
 		right: 10,
@@ -50,7 +50,6 @@ class Endboss extends MovableObject {
 			this.playAnimation(ImageHub.ENDBOSS.DEAD);
 			return;
 		}
-
 		if (this.characterDistance < this.attackRange) {
 			this.playAnimation(ImageHub.ENDBOSS.ATTACK);
 			this.shouldMove = false;
