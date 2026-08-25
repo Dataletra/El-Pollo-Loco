@@ -22,13 +22,12 @@ class World {
 		this.setWorld();
 		this.draw();
 		this.run();
+		IntervalHub.startInterval(this.run, 50);
 	}
 
-	run() {
-		setInterval(() => {
-			this.checkCollisions();
-			this.checkThrowObjects();
-		}, 50);
+	run = () => {
+		this.checkCollisions();
+		this.checkThrowObjects();
 	}
 
 	checkThrowObjects() {
