@@ -40,6 +40,7 @@ class Character extends MovableObject {
 		this.updateWalkingSound();
 	};
 	updateAnimation = () => {
+		let wakeUp = false;
 		let currentTime = new Date().getTime();
 		let timePassed = currentTime - this.lastInput;
 		if (this.isDead()) {
@@ -50,6 +51,7 @@ class Character extends MovableObject {
 			}
 
 		} else if (this.isHurt()) {
+			wakeUp = true;
 			this.playAnimation(ImageHub.PEPE.HURT);
 			this.lastInput = currentTime;
 		} else if (this.isAboveGround()) {
@@ -58,13 +60,23 @@ class Character extends MovableObject {
 		} else if (Keyboard.RIGHT || Keyboard.LEFT) {
 			this.playAnimation(ImageHub.PEPE.WALKING);
 			this.lastInput = currentTime;
-		} else if (timePassed > 10000) {
+		} else if (timePassed > 5000) {
 			this.playAnimation(ImageHub.PEPE.SLEEPING);
-			AudioHub.playOne(AudioHub.CHARACTER_SNORING);
-
-			this.isSleeping = true;
+			if (!this.isSleeping) {
+				this.isSleeping = true;
+				AudioHub.CHARACTER_SNORING.file.loop = true;
+				AudioHub.playOne(AudioHub.CHARACTER_SNORING);
+			}
 		} else {
+			this.stopSnoring();
 			this.playAnimation(ImageHub.PEPE.IDLE);
+		}
+	};
+
+	stopSnoring() {
+		if (this.isSleeping) {
+			this.isSleeping = false;
+			AudioHub.stopOne(AudioHub.CHARACTER_SNORING);
 		}
 	};
 

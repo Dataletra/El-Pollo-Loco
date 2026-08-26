@@ -1,9 +1,13 @@
 class MyAudio {
     file;
     isLoaded;
+    isCurrentlyPlaying = false;
 
     constructor(_file) {
         this.file = new Audio(_file);
+        this.file.addEventListener('ended', () => {
+            this.isCurrentlyPlaying = false;
+        });
     }
 }
 
@@ -44,11 +48,14 @@ class AudioHub {
 
     // Spielt eine einzelne Audiodatei ab
     static playOne(sound) {
+        if (sound.isCurrentlyPlaying) return;
         sound.file.currentTime = 0;
         if (sound.file.readyState > 0 || sound.isLoaded) {
+
             sound.file.volume = 0.1;
             sound.isLoaded = true;
             sound.file.play();
+            sound.file.isCurrentlyPlaying = true;
         }
     }
 
@@ -57,6 +64,8 @@ class AudioHub {
     static stopAll() {
         AudioHub.allSounds.forEach((sound) => {
             sound.file.pause();
+            sound.file.isCurrentlyPlaying = false;
+
         });
     }
 
@@ -64,5 +73,7 @@ class AudioHub {
     // Stoppt das Abspielen einer einzelnen Audiodatei
     static stopOne(sound) {
         sound.file.pause();
+        sound.file.isCurrentlyPlaying = false;
+
     }
 }
