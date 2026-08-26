@@ -33,8 +33,21 @@
 		<script src="./scripts/levels/level1.js"></script>
 	</head>
 	<body>
-		<hi>El Pollo Loco</hi>
-		<canvas id="canvas" width="720" height="480"></canvas>
-		<!-- make div with image and button (startscreen + startbutton) -->
+		<h1>El Pollo Loco</h1>
+
+		<!-- Wrapper holds both canvas and overlay -->
+		<div class="game-container">
+			<canvas id="canvas" width="720" height="480"></canvas>
+
+			<!-- UI Overlay -->
+			<div id="start-screen" class="start-container">
+				<img
+					class="start-screen-img"
+					src="./assets/img/Intro_Outro_scenes/startscreen_1.png"
+					alt="Start Screen"
+				/>
+				<button id="start-btn" class="start-button" onclick="startGame()">Start Game</button>
+			</div>
+		</div>
 	</body>
 </html>

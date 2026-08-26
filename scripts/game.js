@@ -1,9 +1,16 @@
 let canvas;
 let world;
+let startBtnRef;
 function init() {
 	canvas = document.getElementById("canvas");
+	startBtnRef = document.getElementById("start-btn");
+
+}
+function startGame() {
+	document.getElementById("start-screen").classList.add("d-none");
+	initLevel();
 	world = new World(canvas);
-	console.log(world.character);
+	AudioHub.playOne(AudioHub.GAME_START);
 }
 
 window.addEventListener("keydown", (e) => {
