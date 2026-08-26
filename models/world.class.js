@@ -68,6 +68,7 @@ class World {
 
 				if (timePassed > 1000) {
 					this.character.hit();
+					AudioHub.playOne(AudioHub.CHARACTER_DAMAGE);
 					this.healthBar.setPercentage(this.character.hitPoints);
 					this.lastHit = currentTime;
 				}
@@ -80,6 +81,7 @@ class World {
 			this.level.enemies.forEach((enemy) => {
 				if (bottle.isColliding(enemy) && !enemy.isDead()) {
 					enemy.hit();
+					AudioHub.playOne(AudioHub.BOTTLE_BREAK);
 					this.throwableObjects.splice(bottleIndex, 1);
 					this.bossBar.setPercentage(this.endboss.hitPoints);
 
@@ -94,6 +96,8 @@ class World {
 				this.bottles.push(bottle);
 				this.level.bottles.splice(index, 1);
 				this.updateBottleBarPercentage();
+				AudioHub.playOne(AudioHub.BOTTLE_COLLECT_SOUND);
+
 
 			}
 		});
@@ -106,6 +110,8 @@ class World {
 				this.level.coins.splice(index, 1);
 				let coinPercentage = (this.coins.length / 10) * 100;
 				this.coinBar.setPercentage(coinPercentage);
+				AudioHub.playOne(AudioHub.COLLECT_SOUND);
+
 			}
 		});
 	}

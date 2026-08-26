@@ -3,7 +3,9 @@ class Character extends MovableObject {
 	y = 150;
 	lastInput = 0;
 	world;
-
+	deathSoundPlayed = false;
+	isRunning = false;
+	isSleeping = false;
 	offset = {
 		top: 120,
 		right: 10,
@@ -33,13 +35,20 @@ class Character extends MovableObject {
 		if (Keyboard.UP && !this.isAboveGround()) {
 			this.jump();
 		}
+
 		this.world.camera_x = -this.x + 100;
+		this.updateWalkingSound();
 	};
 	updateAnimation = () => {
 		let currentTime = new Date().getTime();
 		let timePassed = currentTime - this.lastInput;
 		if (this.isDead()) {
 			this.playAnimation(ImageHub.PEPE.DEAD);
+			if (!this.deathSoundPlayed) {
+				AudioHub.playOne(AudioHub.CHARACTER_DEAD);
+				this.deathSoundPlayed = true;
+			}
+
 		} else if (this.isHurt()) {
 			this.playAnimation(ImageHub.PEPE.HURT);
 			this.lastInput = currentTime;
@@ -51,10 +60,25 @@ class Character extends MovableObject {
 			this.lastInput = currentTime;
 		} else if (timePassed > 10000) {
 			this.playAnimation(ImageHub.PEPE.SLEEPING);
+			AudioHub.playOne(AudioHub.CHARACTER_SNORING);
+
+			this.isSleeping = true;
 		} else {
 			this.playAnimation(ImageHub.PEPE.IDLE);
 		}
 	};
+
+	updateWalkingSound() {
+		let isMoving = (Keyboard.RIGHT || Keyboard.LEFT) && !this.isAboveGround() && !this.isDead();
+		if (isMoving && !this.isRunning) {
+			AudioHub.playOne(AudioHub.CHARACTER_RUN);
+			this.isRunning = true;
+		}
+		else if (!isMoving && this.isRunning) {
+			AudioHub.stopOne(AudioHub.CHARACTER_RUN);
+			this.isRunning = false;
+		}
+	}
 
 	animate() {
 		IntervalHub.startInterval(this.updateMovement, 1000 / 60);
@@ -62,5 +86,6 @@ class Character extends MovableObject {
 	}
 	jump() {
 		this.speedY = 30;
+		AudioHub.playOne(AudioHub.CHARACTER_JUMP);
 	}
 }
