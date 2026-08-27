@@ -12,6 +12,7 @@ class Character extends MovableObject {
 		bottom: 0,
 		left: 15,
 	}
+
 	constructor() {
 		super();
 		super.loadImage(ImageHub.PEPE.IDLE[0]);
@@ -25,7 +26,9 @@ class Character extends MovableObject {
 		this.applyGravity();
 		this.animate();
 		this.getRealFrame();
+		this.lastInput = new Date().getTime();
 	}
+
 	updateMovement = () => {
 		if (Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
 			this.moveRight();
@@ -39,39 +42,75 @@ class Character extends MovableObject {
 		this.world.camera_x = -this.x + 100;
 		this.updateWalkingSound();
 	};
+
 	updateAnimation = () => {
-		let wakeUp = false;
 		let currentTime = new Date().getTime();
 		let timePassed = currentTime - this.lastInput;
 		if (this.isDead()) {
-			this.playAnimation(ImageHub.PEPE.DEAD);
-			if (!this.deathSoundPlayed) {
-				AudioHub.playOne(AudioHub.CHARACTER_DEAD);
-				this.deathSoundPlayed = true;
-			}
-
+			this.handleDeadState(currentTime);
 		} else if (this.isHurt()) {
-			wakeUp = true;
-			this.playAnimation(ImageHub.PEPE.HURT);
-			this.lastInput = currentTime;
+			this.handleHurtState(currentTime);
 		} else if (this.isAboveGround()) {
-			this.playAnimation(ImageHub.PEPE.JUMP);
-			this.lastInput = currentTime;
+			this.handleJumpState(currentTime);
 		} else if (Keyboard.RIGHT || Keyboard.LEFT) {
-			this.playAnimation(ImageHub.PEPE.WALKING);
-			this.lastInput = currentTime;
+			this.handleWalkState(currentTime);
+		} else if (Keyboard.SPACE) {
+			this.handleThrowState(currentTime);
 		} else if (timePassed > 5000) {
-			this.playAnimation(ImageHub.PEPE.SLEEPING);
-			if (!this.isSleeping) {
-				this.isSleeping = true;
-				AudioHub.CHARACTER_SNORING.file.loop = true;
-				AudioHub.playOne(AudioHub.CHARACTER_SNORING);
-			}
+			this.handleSleepState();
 		} else {
-			this.stopSnoring();
-			this.playAnimation(ImageHub.PEPE.IDLE);
+			this.handleIdleState();
 		}
 	};
+
+	handleDeadState(currentTime) {
+		this.stopSnoring();
+		this.playAnimation(ImageHub.PEPE.DEAD);
+		if (!this.deathSoundPlayed) {
+			AudioHub.playOne(AudioHub.CHARACTER_DEAD);
+			this.deathSoundPlayed = true;
+		}
+		if (Keyboard.SPACE) {
+			this.lastInput = currentTime;
+		}
+	}
+
+	handleHurtState(currentTime) {
+		this.stopSnoring();
+		this.playAnimation(ImageHub.PEPE.HURT);
+		this.lastInput = currentTime;
+	}
+
+	handleJumpState(currentTime) {
+		this.stopSnoring();
+		this.playAnimation(ImageHub.PEPE.JUMP);
+		this.lastInput = currentTime;
+	}
+
+	handleWalkState(currentTime) {
+		this.stopSnoring();
+		this.playAnimation(ImageHub.PEPE.WALKING);
+		this.lastInput = currentTime;
+	}
+
+	handleThrowState(currentTime) {
+		this.stopSnoring();
+		this.lastInput = currentTime;
+	}
+
+	handleSleepState() {
+		this.playAnimation(ImageHub.PEPE.SLEEPING);
+		if (!this.isSleeping) {
+			this.isSleeping = true;
+			AudioHub.CHARACTER_SNORING.file.loop = true;
+			AudioHub.playOne(AudioHub.CHARACTER_SNORING);
+		}
+	}
+
+	handleIdleState() {
+		this.stopSnoring();
+		this.playAnimation(ImageHub.PEPE.IDLE);
+	}
 
 	stopSnoring() {
 		if (this.isSleeping) {
@@ -96,6 +135,7 @@ class Character extends MovableObject {
 		IntervalHub.startInterval(this.updateMovement, 1000 / 60);
 		IntervalHub.startInterval(this.updateAnimation, 100);
 	}
+
 	jump() {
 		this.speedY = 30;
 		AudioHub.playOne(AudioHub.CHARACTER_JUMP);
