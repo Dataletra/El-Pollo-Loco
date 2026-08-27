@@ -45,6 +45,7 @@ class Endboss extends MovableObject {
 		}
 	};
 
+	//TODO: add encounter sound
 	updateAnimation = () => {
 		if (this.isDead()) {
 			this.playAnimation(ImageHub.ENDBOSS.DEAD);
