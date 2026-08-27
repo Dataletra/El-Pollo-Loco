@@ -4,6 +4,7 @@ class Pollito extends MovableObject {
 	width = 60;
 	hitPoints = 1;
 	currentImage = 0;
+
 	constructor() {
 		super();
 		super.loadImage(ImageHub.POLLITO.WALKING[0]);
@@ -13,16 +14,27 @@ class Pollito extends MovableObject {
 		this.loadImages(ImageHub.POLLITO.DEAD);
 		this.animate();
 	}
-	animate() {
-		setInterval(() => {
-			if (!this.isDead()) this.x -= this.speed;
-		}, 1000 / 60);
-		setInterval(() => {
-			if (this.isDead()) {
-				this.playAnimation(ImageHub.POLLITO.DEAD);
-			} else {
-				this.playAnimation(ImageHub.POLLITO.WALKING);
+
+	updateMovement = () => {
+		if (!this.isDead()) {
+			this.x -= this.speed;
+		}
+	};
+
+	updateAnimation = () => {
+		if (this.isDead()) {
+			this.playAnimation(ImageHub.POLLITO.DEAD);
+			if (!this.deathSoundPlayed) {
+				AudioHub.playOne(AudioHub.CHICKEN_DEAD_2);
+				this.deathSoundPlayed = true;
 			}
-		}, 100);
+		} else {
+			this.playAnimation(ImageHub.POLLITO.WALKING);
+		}
+	};
+
+	animate() {
+		IntervalHub.startInterval(this.updateMovement, 1000 / 60);
+		IntervalHub.startInterval(this.updateAnimation, 100);
 	}
 }

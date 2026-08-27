@@ -4,6 +4,7 @@ class Chicken extends MovableObject {
 	width = 80;
 	hitPoints = 1;
 	currentImage = 0;
+
 	constructor() {
 		super();
 		super.loadImage(ImageHub.CHICKEN.WALKING[0]);
@@ -23,6 +24,10 @@ class Chicken extends MovableObject {
 	updateAnimation = () => {
 		if (this.isDead()) {
 			this.playAnimation(ImageHub.CHICKEN.DEAD);
+			if (!this.deathSoundPlayed) {
+				AudioHub.playOne(AudioHub.CHICKEN_DEAD);
+				this.deathSoundPlayed = true;
+			}
 		} else {
 			this.playAnimation(ImageHub.CHICKEN.WALKING);
 		}
