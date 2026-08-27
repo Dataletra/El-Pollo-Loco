@@ -1,5 +1,6 @@
 let level1;
 function initLevel() {
+	BackgroundObject.reset();
 	level1 = new Level(
 		[
 			new Chicken(),

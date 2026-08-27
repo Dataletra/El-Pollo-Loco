@@ -15,4 +15,8 @@ class BackgroundObject extends MovableObject {
 		this.x = BackgroundObject.xPos;
 		BackgroundObject.turn++;
 	}
+	static reset() {
+		BackgroundObject.xPos = -719;
+		BackgroundObject.turn = 0;
+	}
 }

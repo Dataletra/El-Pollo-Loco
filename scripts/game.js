@@ -4,10 +4,14 @@ let startBtnRef;
 function init() {
 	canvas = document.getElementById("canvas");
 	startBtnRef = document.getElementById("start-btn");
+	document.getElementById('win-screen').classList.add('d-none');
+	document.getElementById('lose-screen').classList.add('d-none');
 
 }
 function startGame() {
 	document.getElementById("start-screen").classList.add("d-none");
+	document.getElementById('win-screen').classList.add('d-none');
+	document.getElementById('lose-screen').classList.add('d-none');
 	initLevel();
 	world = new World(canvas);
 	AudioHub.playOne(AudioHub.GAME_START);

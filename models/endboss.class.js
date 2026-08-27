@@ -48,6 +48,10 @@ class Endboss extends MovableObject {
 	updateAnimation = () => {
 		if (this.isDead()) {
 			this.playAnimation(ImageHub.ENDBOSS.DEAD);
+			if (!this.deathSoundPlayed) {
+				AudioHub.playOne(AudioHub.CHICKEN_DEAD);
+				this.deathSoundPlayed = true;
+			}
 			return;
 		}
 		if (this.characterDistance < this.attackRange) {

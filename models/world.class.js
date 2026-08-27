@@ -28,6 +28,7 @@ class World {
 	run = () => {
 		this.checkCollisions();
 		this.checkThrowObjects();
+		this.checkGameOver();
 	}
 
 	checkThrowObjects() {
@@ -46,6 +47,7 @@ class World {
 			this.updateBottleBarPercentage();
 		}
 	}
+	// #region Collisions
 
 	checkCollisions() {
 		this.enemyVsCharacter();
@@ -127,8 +129,8 @@ class World {
 		let boss = this.level.enemies.find(e => e instanceof Endboss);
 		if (boss) boss.world = this;
 	}
-
-
+	// #endregion
+	// #region add Objects
 	draw() {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		this.ctx.translate(this.camera_x, 0);
@@ -195,4 +197,39 @@ class World {
 		mo.x = mo.x * -1;
 		this.ctx.restore();
 	}
+	//# endregion
+	// #region End Game logic
+	checkGameOver() {
+		if (this.checkYouLose()) {
+			this.handleGameOver(false);
+		} else if (this.checkYouWin()) {
+			this.handleGameOver(true);
+		}
+	}
+
+	checkYouLose() {
+		return this.character.isDead();
+	}
+
+	checkYouWin() {
+		return this.endboss.isDead();
+	}
+
+	handleGameOver(hasWon) {
+		IntervalHub.stopAllIntervals();
+		if (hasWon) {
+			this.showEndScreen(true);
+		} else {
+			this.showEndScreen(false);
+		}
+	}
+
+	showEndScreen(result) {
+		if (result) {
+			document.getElementById('win-screen').classList.remove('d-none');
+		} else {
+			document.getElementById('lose-screen').classList.remove('d-none');
+		}
+	}
+	// #endregion
 }
