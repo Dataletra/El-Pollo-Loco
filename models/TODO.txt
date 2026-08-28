@@ -1,7 +1,3 @@
-add encounter sound to boss
-smooth out end game logic -> only end game after boss death animation has played
-make bottles smaller
-have bottles spawn with the other image at random
 increase map distance (boss spawn location)
 increase map distance (background more backwards and forwards)
 add more enemies
@@ -9,3 +5,8 @@ have bottles spawn periodically? (only if boss health will be much more)
 
 clarify: game over + game won sounds?
 
+responsiveness
+
+tutorial (pictures)
+change background to desert
+hide start game button when playing

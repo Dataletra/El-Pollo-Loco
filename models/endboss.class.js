@@ -2,10 +2,10 @@ class Endboss extends MovableObject {
 	height = 400;
 	width = 250;
 	y = 55;
-	speed = 0.3;
+	speed = 0.6;
 	hitPoints = 100;
 	isAlerted = false;
-	alrtDistToBoss = 300;
+	alrtDistToBoss = 600;
 	characterDistance = 2000;
 	world;
 	shouldMove = true;

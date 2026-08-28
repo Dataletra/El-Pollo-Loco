@@ -15,6 +15,7 @@ class World {
 	lastThrown = 0;
 	lastHit = 0;
 	bossEncountered = false;
+	gameOver = false;
 
 	constructor(canvas) {
 		this.ctx = canvas.getContext("2d");
@@ -200,6 +201,7 @@ class World {
 	//# endregion
 	// #region End Game logic
 	checkGameOver() {
+		if (this.gameOver) return;
 		if (this.checkYouLose()) {
 			this.handleGameOver(false);
 		} else if (this.checkYouWin()) {
@@ -216,12 +218,11 @@ class World {
 	}
 
 	handleGameOver(hasWon) {
-		IntervalHub.stopAllIntervals();
-		if (hasWon) {
-			this.showEndScreen(true);
-		} else {
-			this.showEndScreen(false);
-		}
+		setTimeout(() => {
+			IntervalHub.stopAllIntervals();
+			AudioHub.stopAll();
+			this.showEndScreen(hasWon);
+		}, 1200);//1.2s for sounds / animations to play out
 	}
 
 	showEndScreen(result) {
