@@ -10,7 +10,10 @@ class Endboss extends MovableObject {
 	world;
 	shouldMove = true;
 	attackRange = 120;
-	alertedLoop = 0;
+	isAlerting = false;
+	hadFirstContact = false;
+	deathSoundPlayed = false;
+	encounterSoundPlayed = false;
 	offset = {
 		top: 120,
 		right: 10,
@@ -29,38 +32,71 @@ class Endboss extends MovableObject {
 
 		this.x = 1700;
 		this.animate();
-	}
+	};
 
 	checkDistanceToCharacter = () => {
+		if (!this.world || !this.world.character) return;
+
 		this.characterDistance = this.x - this.world.character.x;
 
-		if (this.characterDistance < this.alrtDistToBoss) {
+		if (this.characterDistance < this.alrtDistToBoss && !this.hadFirstContact) {
+			this.hadFirstContact = true;
 			this.isAlerted = true;
+			this.isAlerting = true;
+			this.alertCounter = 0;
 		}
 	};
 
 	updateMovement = () => {
-		if (!this.isDead() && this.isAlerted && this.shouldMove) {
+		if (!this.isDead() && this.isAlerted && !this.isAlerting && this.shouldMove) {
 			this.x -= this.speed;
 		}
 	};
 
-	//TODO: add encounter sound
 	updateAnimation = () => {
 		if (this.isDead()) {
-			this.playAnimation(ImageHub.ENDBOSS.DEAD);
-			if (!this.deathSoundPlayed) {
-				AudioHub.playOne(AudioHub.CHICKEN_DEAD);
-				this.deathSoundPlayed = true;
-			}
+			this.handleDeadState();
 			return;
 		}
+		if (this.isHurt()) {
+			this.playAnimation(ImageHub.ENDBOSS.HURT);
+			return;
+		}
+		if (this.isAlerting) {
+			this.handleAlertState();
+			return;
+		}
+		if (this.isAlerted) {
+			this.handleAttackOrMove();
+		}
+	};
+
+	handleAttackOrMove() {
 		if (this.characterDistance < this.attackRange) {
-			this.playAnimation(ImageHub.ENDBOSS.ATTACK);
-			this.shouldMove = false;
+			this.attack();
 		} else {
-			this.shouldMove = true;
-			this.playAnimation(ImageHub.ENDBOSS.WALK);
+			this.move();
+		}
+	};
+
+	handleAlertState() {
+		this.playAnimation(ImageHub.ENDBOSS.ALERT);
+		this.shouldMove = false;
+		if (!this.encounterSoundPlayed) {
+			AudioHub.playOne(AudioHub.ENDBOSS_APPROACH);
+			this.encounterSoundPlayed = true;
+		}
+		this.alertCounter++;
+		if (this.alertCounter >= 12) {
+			this.isAlerting = false;
+		}
+	};
+
+	handleDeadState() {
+		this.playAnimation(ImageHub.ENDBOSS.DEAD);
+		if (!this.deathSoundPlayed) {
+			AudioHub.playOne(AudioHub.CHICKEN_DEAD);
+			this.deathSoundPlayed = true;
 		}
 	};
 
@@ -68,22 +104,15 @@ class Endboss extends MovableObject {
 		IntervalHub.startInterval(this.checkDistanceToCharacter, 300);
 		IntervalHub.startInterval(this.updateMovement, 1000 / 60);
 		IntervalHub.startInterval(this.updateAnimation, 250);
-	}
+	};
+
+	attack() {
+		this.playAnimation(ImageHub.ENDBOSS.ATTACK);
+		this.shouldMove = false;
+	};
+
+	move() {
+		this.playAnimation(ImageHub.ENDBOSS.WALK);
+		this.shouldMove = true;
+	};
 }
-// setInterval(() => {
-// 	if (this.isAlerted) {
-// 		this.playAnimation(ImageHub.ENDBOSS.ALERT);
-// 		//this.attackMode = true;
-// 	}
-// }, 100);
-// setInterval(() => {
-// 	if (!this.isDead() && Endboss.isAlerted) this.x -= this.speed;
-// }, 1000 / 60);
-// setInterval(() => {
-// 	if (this.isDead()) {
-// 		this.playAnimation(ImageHub.ENDBOSS.DEAD);
-// 	} else {
-// 		if (!Endboss.isAlerted)
-// 			this.playAnimation(ImageHub.ENDBOSS.WALK);
-// 	}
-// }, 100);
