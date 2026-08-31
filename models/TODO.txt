@@ -10,7 +10,6 @@ responsiveness
 
 tutorial (pictures)
 change background to desert
-hide start game button when playing
 
 
 make coins float
