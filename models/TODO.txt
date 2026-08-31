@@ -12,14 +12,6 @@ tutorial (pictures)
 change background to desert
 hide start game button when playing
 
-buttons for mobile only visible if mobile is SELECTED in dev tools (not solved only through mediaquery)
-mobile controls
-
-@media (hover: hover) {
-  .some-component {
-    /* Styles for hover-able devices */
-  }
-}
 
 make coins float
 Math random on x and y (within limits)

@@ -231,6 +231,8 @@ class World {
 		} else {
 			document.getElementById('lose-screen').classList.remove('d-none');
 		}
+		document.getElementById('start-btn').classList.remove('d-none');
+
 	}
 	// #endregion
 }
