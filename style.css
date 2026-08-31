@@ -76,3 +76,63 @@ h1 {
 .d-none {
 	display: none;
 }
+
+/* hide for desktop users */
+.controls-overlay {
+	display: none;
+}
+
+/* show controls ONLY on devices without hover ability */
+@media (hover: none) {
+	.controls-overlay {
+		position: absolute;
+		top: 77%;
+		left: 0;
+		right: 0;
+		pointer-events: none;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		padding: 0 16px 8px 16px;
+		box-sizing: border-box;
+		z-index: 5;
+	}
+
+	/* restart button clicks */
+	.dpad,
+	.action-btn {
+		pointer-events: auto;
+	}
+
+	.dpad {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 4px;
+	}
+
+	.dpad-row {
+		display: flex;
+		justify-content: space-between;
+		gap: 4px;
+	}
+
+	.btn {
+		width: 44px;
+		height: 44px;
+		background: rgba(0, 0, 0, 0.379);
+		border: 2px solid rgba(195, 85, 0, 0.972);
+		color: #ffffff;
+		border-radius: 8px;
+		backdrop-filter: blur(4px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+	}
+
+	.action-btn {
+		background: rgba(255, 0, 0, 0.558);
+		border-color: rgba(255, 80, 80, 0.7);
+	}
+}

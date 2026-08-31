@@ -3,10 +3,26 @@ increase map distance (background more backwards and forwards)
 add more enemies
 have bottles spawn periodically? (only if boss health will be much more)
 
-clarify: game over + game won sounds?
 
 responsiveness
+
+!!NO FULLSCREEN MODE!!
 
 tutorial (pictures)
 change background to desert
 hide start game button when playing
+
+buttons for mobile only visible if mobile is SELECTED in dev tools (not solved only through mediaquery)
+mobile controls
+
+@media (hover: hover) {
+  .some-component {
+    /* Styles for hover-able devices */
+  }
+}
+
+make coins float
+Math random on x and y (within limits)
+
+check checklist for javadoc
+https://jsdoc.app/about-getting-started

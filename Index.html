@@ -35,11 +35,19 @@
 	<body>
 		<h1>El Pollo Loco</h1>
 
-		<!-- Wrapper holds both canvas and overlay -->
 		<div class="game-container">
+			<div class="controls-overlay">
+				<div class="dpad">
+					<button id="up" class="btn">▲</button>
+					<div class="dpad-row">
+						<button id="left" class="btn">◄</button>
+						<button id="attack" class="btn action-btn">A</button>
+						<button id="right" class="btn">►</button>
+					</div>
+				</div>
+			</div>
 			<canvas id="canvas" width="720" height="480"></canvas>
 
-			<!-- UI Overlay -->
 			<div id="start-screen" class="start-container">
 				<img
 					class="start-screen-img"

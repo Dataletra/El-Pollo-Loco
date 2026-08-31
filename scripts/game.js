@@ -1,13 +1,16 @@
 let canvas;
 let world;
 let startBtnRef;
+
 function init() {
 	canvas = document.getElementById("canvas");
 	startBtnRef = document.getElementById("start-btn");
 	document.getElementById('win-screen').classList.add('d-none');
 	document.getElementById('lose-screen').classList.add('d-none');
 
+	bindOverlayButtons();
 }
+
 function startGame() {
 	document.getElementById("start-screen").classList.add("d-none");
 	document.getElementById('win-screen').classList.add('d-none');
@@ -15,6 +18,22 @@ function startGame() {
 	initLevel();
 	world = new World(canvas);
 	AudioHub.playOne(AudioHub.GAME_START);
+}
+
+function bindOverlayButtons() {
+	const mobileButtons = [
+		{ id: 'left', property: 'LEFT' },
+		{ id: 'right', property: 'RIGHT' },
+		{ id: 'up', property: 'UP' },
+		{ id: 'attack', property: 'SPACE' }
+	];
+
+	mobileButtons.forEach(({ id, property }) => {
+		const btn = document.getElementById(id);
+		if (!btn) return;
+		btn.addEventListener('touchstart', (e) => { e.preventDefault(); Keyboard[property] = true; });
+		btn.addEventListener('touchend', (e) => { e.preventDefault(); Keyboard[property] = false; });
+	});
 }
 
 window.addEventListener("keydown", (e) => {
@@ -56,4 +75,5 @@ window.addEventListener("keyup", (e) => {
 			break;
 	}
 });
+
 init();
