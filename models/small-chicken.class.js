@@ -1,4 +1,9 @@
-class Pollito extends MovableObject {
+import { MovableObject } from './movable-object.class.js';
+import { ImageHub } from './imageHub.class.js';
+import { AudioHub } from './AudioHub.class.js';
+import { IntervalHub } from '../scripts/IntervalHub.js';
+
+export class Pollito extends MovableObject {
 	y = 390;
 	height = 40;
 	width = 60;

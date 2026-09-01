@@ -5,13 +5,10 @@ have bottles spawn periodically? (only if boss health will be much more)
 
 add background music -> Missing assets
 
-
+make start game button responsive
 !!NO FULLSCREEN MODE!!
 
 tutorial (pictures)
-change background to desert
-
-
 
 check checklist for javadoc
 https://jsdoc.app/about-getting-started

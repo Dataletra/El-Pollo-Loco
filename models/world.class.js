@@ -1,4 +1,16 @@
-class World {
+import { Character } from './character.class.js';
+import { HealthBar } from './health-bar.class.js';
+import { CoinBar } from './coin-bar.class.js';
+import { BottleBar } from './bottle-bar.class.js';
+import { BossBar } from './boss-bar-class.js';
+import { Endboss } from './endboss.class.js';
+import { ThrowableObject } from './throwable-object.class.js';
+import { AudioHub } from './AudioHub.class.js';
+import { Keyboard } from './keyboard.class.js';
+import { IntervalHub } from '../scripts/IntervalHub.js';
+import { level1 } from '../scripts/levels/level1.js';
+
+export class World {
 	character = new Character();
 	healthBar = new HealthBar();
 	coinBar = new CoinBar();
@@ -137,20 +149,10 @@ class World {
 		this.addObjectsToMap(this.level.backgroundObjects);
 		this.addObjectsToMap(this.level.clouds);
 		this.addEntities();
-		//this.renderEgg();
 		this.ctx.translate(-this.camera_x, 0);
 		this.addHudElements();
 		requestAnimationFrame(() => this.draw());
 	}
-
-	// renderEgg() {
-	// 	if (this.endboss.attack()) {
-	// 		let egg = new Egg();
-	// 		let eggs = [];
-	// 		eggs.push(egg);
-	// 		this.addObjectsToMap(eggs);
-	// 	}
-	// }
 
 	addEntities() {
 		this.addToMap(this.character);
@@ -217,6 +219,8 @@ class World {
 	}
 
 	handleGameOver(hasWon) {
+		if (this.gameOver) return;
+		this.gameOver = true;
 		setTimeout(() => {
 			IntervalHub.stopAllIntervals();
 			AudioHub.stopAll();
@@ -230,8 +234,6 @@ class World {
 		} else {
 			document.getElementById('lose-screen').classList.remove('d-none');
 		}
-		document.getElementById('start-btn').classList.remove('d-none');
-
 	}
 	// #endregion
 }

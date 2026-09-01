@@ -1,4 +1,6 @@
-class Bottle extends CollectableObject {
+import { CollectableObject } from './collectable-object.class.js';
+
+export class Bottle extends CollectableObject {
 	static amount = 0;
 	height = 100;
 	width = 80;

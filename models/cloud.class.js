@@ -1,4 +1,7 @@
-class Cloud extends MovableObject {
+import { MovableObject } from './movable-object.class.js';
+import { IntervalHub } from '../scripts/IntervalHub.js';
+
+export class Cloud extends MovableObject {
 	speed = 0.15;
 	y = 50;
 	width = 500;

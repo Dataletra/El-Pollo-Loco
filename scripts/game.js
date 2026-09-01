@@ -1,3 +1,8 @@
+import { World } from '../models/world.class.js';
+import { AudioHub } from '../models/AudioHub.class.js';
+import { Keyboard } from '../models/keyboard.class.js';
+import { initLevel } from './levels/level1.js';
+
 let canvas;
 let world;
 let startBtnRef;
@@ -76,5 +81,9 @@ window.addEventListener("keyup", (e) => {
 			break;
 	}
 });
+
+// Index.html calls startGame() via inline onclick="" attributes. Module-scope
+// functions aren't visible to inline handlers, so it's exposed here explicitly.
+window.startGame = startGame;
 
 init();

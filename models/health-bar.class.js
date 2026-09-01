@@ -1,4 +1,6 @@
-class HealthBar extends StatusBar {
+import { StatusBar } from './status-bar.class.js';
+
+export class HealthBar extends StatusBar {
 	constructor() {
 		super(
 			[

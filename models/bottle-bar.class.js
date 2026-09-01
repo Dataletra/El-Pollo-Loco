@@ -1,4 +1,6 @@
-class BottleBar extends StatusBar {
+import { StatusBar } from './status-bar.class.js';
+
+export class BottleBar extends StatusBar {
 	constructor() {
 		super(
 			[

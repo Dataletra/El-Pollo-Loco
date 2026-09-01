@@ -1,4 +1,4 @@
-class ImageHub {
+export class ImageHub {
 	static PEPE = {
 		WALKING: [
 			"./assets/img/character/walk-1.png",

@@ -1,4 +1,10 @@
-class Character extends MovableObject {
+import { MovableObject } from './movable-object.class.js';
+import { ImageHub } from './imageHub.class.js';
+import { Keyboard } from './keyboard.class.js';
+import { AudioHub } from './AudioHub.class.js';
+import { IntervalHub } from '../scripts/IntervalHub.js';
+
+export class Character extends MovableObject {
 	height = 280;
 	y = 150;
 	lastInput = 0;

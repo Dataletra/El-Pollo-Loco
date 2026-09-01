@@ -1,4 +1,6 @@
-class MovableObject extends DrawableObject {
+import { DrawableObject } from './drawable-object.class.js';
+
+export class MovableObject extends DrawableObject {
 	speed = 1;
 	otherDirection = false;
 	speedY = 0;
@@ -39,11 +41,7 @@ class MovableObject extends DrawableObject {
 	}
 
 	isAboveGround() {
-		if (this instanceof ThrowableObject) {
-			return true;
-		} else {
-			return this.y < 150;
-		}
+		return this.y < 150;
 	}
 
 	moveRight() {

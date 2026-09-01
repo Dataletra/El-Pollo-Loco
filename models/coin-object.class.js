@@ -1,4 +1,6 @@
-class Coin extends CollectableObject {
+import { CollectableObject } from './collectable-object.class.js';
+
+export class Coin extends CollectableObject {
 	static amount = 0;
 
 	constructor() {

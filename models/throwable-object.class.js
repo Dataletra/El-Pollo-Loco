@@ -1,4 +1,6 @@
-class ThrowableObject extends MovableObject {
+import { MovableObject } from './movable-object.class.js';
+
+export class ThrowableObject extends MovableObject {
 	IMAGES_SPINNING = [
 		"assets/img/bottle/botella-1.png",
 		"assets/img/bottle/botella-2.png",
@@ -18,6 +20,13 @@ class ThrowableObject extends MovableObject {
 		this.otherDirection = otherDirection;
 		this.throw();
 		this.animate();
+	}
+
+	// A thrown bottle is always treated as "above ground" (falls under gravity),
+	// regardless of its y position. Previously handled via an instanceof check
+	// in MovableObject; moved here to avoid a circular import.
+	isAboveGround() {
+		return true;
 	}
 
 	throw() {

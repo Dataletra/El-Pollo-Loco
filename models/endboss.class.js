@@ -1,4 +1,9 @@
-class Endboss extends MovableObject {
+import { MovableObject } from './movable-object.class.js';
+import { ImageHub } from './imageHub.class.js';
+import { AudioHub } from './AudioHub.class.js';
+import { IntervalHub } from '../scripts/IntervalHub.js';
+
+export class Endboss extends MovableObject {
 	height = 400;
 	width = 250;
 	y = 55;
@@ -7,7 +12,6 @@ class Endboss extends MovableObject {
 	isAlerted = false;
 	alrtDistToBoss = 600;
 	characterDistance = 2000;
-	world;
 	shouldMove = true;
 	attackRange = 120;
 	isAlerting = false;

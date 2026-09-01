@@ -1,5 +1,15 @@
-let level1;
-function initLevel() {
+import { BackgroundObject } from '../../models/background-object.class.js';
+import { Level } from '../../models/level.class.js';
+import { Chicken } from '../../models/chicken.class.js';
+import { Pollito } from '../../models/small-chicken.class.js';
+import { Endboss } from '../../models/endboss.class.js';
+import { Cloud } from '../../models/cloud.class.js';
+import { Bottle } from '../../models/bottle-object.class.js';
+import { Coin } from '../../models/coin-object.class.js';
+
+export let level1;
+
+export function initLevel() {
 	BackgroundObject.reset();
 	level1 = new Level(
 		[
