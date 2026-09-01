@@ -62,7 +62,8 @@ class World {
 			if (
 				this.character.isColliding(enemy) &&
 				this.character.speedY < 0 &&
-				!enemy.isDead()
+				!enemy.isDead() &&
+				!enemy instanceof Endboss
 			) {
 				enemy.hit();
 			} else if (this.character.isColliding(enemy) && !enemy.isDead()) {

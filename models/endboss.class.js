@@ -43,8 +43,8 @@ class Endboss extends MovableObject {
 			this.isAlerting = true;
 			this.alertCounter = 0;
 		}
-		//makes sure that character cant jump on boss by restricting end of world
-		this.world.level.level_end_x = this.x - 130;
+		//makes sure that character cant walk past boss
+		this.world.level.level_end_x = this.x - 90;
 	};
 
 	updateMovement = () => {
@@ -54,21 +54,10 @@ class Endboss extends MovableObject {
 	};
 
 	updateAnimation = () => {
-		if (this.isDead()) {
-			this.handleDeadState();
-			return;
-		}
-		if (this.isHurt()) {
-			this.playAnimation(ImageHub.ENDBOSS.HURT);
-			return;
-		}
-		if (this.isAlerting) {
-			this.handleAlertState();
-			return;
-		}
-		if (this.isAlerted) {
-			this.handleAttackOrMove();
-		}
+		if (this.isDead()) return this.handleDeadState();
+		if (this.isHurt()) return this.playAnimation(ImageHub.ENDBOSS.HURT);
+		if (this.isAlerting) return this.handleAlertState();
+		if (this.isAlerted) this.handleAttackOrMove();
 	};
 
 	handleAttackOrMove() {
