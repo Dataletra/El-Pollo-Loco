@@ -38,7 +38,6 @@ class Character extends MovableObject {
 		if (Keyboard.UP && !this.isAboveGround()) {
 			this.jump();
 		}
-
 		this.world.camera_x = -this.x + 100;
 		this.updateWalkingSound();
 	};

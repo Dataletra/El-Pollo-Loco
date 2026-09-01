@@ -3,8 +3,8 @@ increase map distance (background more backwards and forwards)
 add more enemies
 have bottles spawn periodically? (only if boss health will be much more)
 
+add background music -> Missing assets
 
-responsiveness
 
 !!NO FULLSCREEN MODE!!
 

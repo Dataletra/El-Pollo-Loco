@@ -10,7 +10,7 @@ function initLevel() {
 			new Pollito(),
 			new Endboss(),
 		],
-		[new Cloud(), new Cloud()],
+		[new Cloud(), new Cloud(), new Cloud(), new Cloud(), new Cloud(), new Cloud()],
 		[
 			new BackgroundObject("assets/img/background/bgCielo-1.png"),
 			new BackgroundObject("assets/img/background/bg3-2.png"),
