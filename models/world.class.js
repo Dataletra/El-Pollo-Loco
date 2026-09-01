@@ -100,8 +100,6 @@ class World {
 				this.level.bottles.splice(index, 1);
 				this.updateBottleBarPercentage();
 				AudioHub.playOne(AudioHub.BOTTLE_COLLECT_SOUND);
-
-
 			}
 		});
 	}
@@ -136,8 +134,8 @@ class World {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		this.ctx.translate(this.camera_x, 0);
 		this.addObjectsToMap(this.level.backgroundObjects);
-		this.addEntities();
 		this.addObjectsToMap(this.level.clouds);
+		this.addEntities();
 		//this.renderEgg();
 		this.ctx.translate(-this.camera_x, 0);
 		this.addHudElements();

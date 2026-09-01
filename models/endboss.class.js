@@ -30,21 +30,21 @@ class Endboss extends MovableObject {
 		this.loadImages(ImageHub.ENDBOSS.DEAD);
 		this.loadImages(ImageHub.ENDBOSS.ATTACK);
 
-		this.x = 1700;
+		this.x = 2400;
 		this.animate();
 	};
 
 	checkDistanceToCharacter = () => {
 		if (!this.world || !this.world.character) return;
-
 		this.characterDistance = this.x - this.world.character.x;
-
 		if (this.characterDistance < this.alrtDistToBoss && !this.hadFirstContact) {
 			this.hadFirstContact = true;
 			this.isAlerted = true;
 			this.isAlerting = true;
 			this.alertCounter = 0;
 		}
+		//makes sure that character cant jump on boss by restricting end of world
+		this.world.level.level_end_x = this.x - 130;
 	};
 
 	updateMovement = () => {

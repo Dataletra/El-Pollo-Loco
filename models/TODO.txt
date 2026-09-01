@@ -12,8 +12,6 @@ tutorial (pictures)
 change background to desert
 
 
-make coins float
-Math random on x and y (within limits)
 
 check checklist for javadoc
 https://jsdoc.app/about-getting-started
