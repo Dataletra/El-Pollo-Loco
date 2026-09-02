@@ -32,13 +32,14 @@ function toggleMuteGame() {
 		MyAudio.isMuted = false;
 		document.getElementById('mute-btn').classList.add('red-text');
 		document.getElementById('mute-btn').classList.remove('green-text');
+		AudioHub.playOne(AudioHub.GAME_MUSIC);
+
 	} else {
 		document.getElementById('mute-btn').classList.add('green-text');
 		document.getElementById('mute-btn').classList.remove('red-text');
+		AudioHub.stopAll();
 		MyAudio.isMuted = true;
 	}
-	console.log(MyAudio.isMuted);
-
 }
 function bindOverlayButtons() {
 	const mobileButtons = [
