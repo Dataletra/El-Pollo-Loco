@@ -66,8 +66,8 @@ function bindOverlayButtons() {
 
 	mobileButtons.forEach(({ id, property }) => {
 		const btn = document.getElementById(id);
-		btn.addEventListener('touchstart', (e) => { e.preventDefault(); Keyboard[property] = true; });
-		btn.addEventListener('touchend', (e) => { e.preventDefault(); Keyboard[property] = false; });
+		btn.addEventListener('touchstart', () => { Keyboard[property] = true; });
+		btn.addEventListener('touchend', () => { Keyboard[property] = false; });
 	});
 }
 
