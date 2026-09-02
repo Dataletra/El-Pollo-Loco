@@ -4,6 +4,10 @@ import { StatusBar } from './status-bar.class.js';
  * Health bar shown for the end boss, positioned in the top-right HUD area.
  */
 export class BossBar extends StatusBar {
+	/**
+	 *@param {number} [x=500] - X position on screen.
+	 *@param {number} [y=10] - Y position on screen.
+	 */
 	constructor() {
 		super(
 			[
