@@ -24,6 +24,7 @@ function startGame() {
 	initLevel();
 	world = new World(canvas);
 	AudioHub.playOne(AudioHub.GAME_START);
+	AudioHub.playOne(AudioHub.GAME_MUSIC);
 }
 
 function toggleMuteGame() {

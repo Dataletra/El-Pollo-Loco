@@ -2,7 +2,7 @@ export class MyAudio {
 	file;
 	isLoaded;
 	isCurrentlyPlaying = false;
-	customVolume = 0.3;
+	customVolume = 0.1;
 	static isMuted = false;
 
 	constructor(_file) {
@@ -30,6 +30,7 @@ export class AudioHub extends MyAudio {
 	static ENDBOSS_APPROACH = new MyAudio('./assets/sounds/endboss/endbossApproach.wav');
 
 	static GAME_START = new MyAudio('./assets/sounds/game/gameStart.mp3');
+	static GAME_MUSIC = new MyAudio('./assets/sounds/game/backgroundMusic.mp3');
 
 	static BOTTLE_BREAK = new MyAudio('./assets/sounds/throwable/bottleBreak.mp3');
 
@@ -45,6 +46,7 @@ export class AudioHub extends MyAudio {
 		AudioHub.COLLECT_SOUND,
 		AudioHub.ENDBOSS_APPROACH,
 		AudioHub.GAME_START,
+		AudioHub.GAME_MUSIC,
 		AudioHub.BOTTLE_BREAK,
 	];
 
