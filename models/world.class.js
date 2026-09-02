@@ -175,7 +175,6 @@ export class World {
 	 */
 	updateBottleBarPercentage() {
 		let bottlePercentage = (this.bottles.length / 10) * 100;
-		console.log("this.bottles.length: ", this.bottles.length);
 		this.bottleBar.setPercentage(bottlePercentage);
 	}
 

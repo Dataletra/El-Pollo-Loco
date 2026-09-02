@@ -35,7 +35,6 @@ export class DrawableObject {
 		try {
 			ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 		} catch (error) {
-			console.warn(this.img);
 			console.log(error);
 		}
 	}
