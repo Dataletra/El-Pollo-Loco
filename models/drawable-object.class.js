@@ -41,6 +41,7 @@ export class DrawableObject {
 		this.rH = this.height - this.offset.top - this.offset.bottom;
 	}
 
+	// Used for debugging Collisions
 	drawFrame(ctx) {
 		if (false
 			// this instanceof Character ||

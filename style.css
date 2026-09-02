@@ -3,6 +3,10 @@
 *::after {
 	box-sizing: border-box;
 }
+@font-face {
+	font-family: Mercantile;
+	src: url("./assets/fonts/Crescent\ Mercantile.otf") format("opentype");
+}
 body {
 	display: flex;
 	flex-direction: column;
@@ -19,6 +23,8 @@ body {
 
 h1 {
 	margin-bottom: 20px;
+	font-family: Mercantile;
+	color: black;
 }
 
 .game-container {
@@ -103,8 +109,10 @@ h1 {
 	z-index: 2;
 	padding: 5px 10px;
 	font-size: 19px;
+	font-family: Mercantile;
+	letter-spacing: 3px;
 	font-weight: bold;
-	color: white;
+	color: black;
 	background-color: orange;
 	border: none;
 	border-radius: 8px;
