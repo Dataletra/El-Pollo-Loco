@@ -1,4 +1,10 @@
+/**
+ * Central registry of image paths for every image used ingame,
+ * sorted by character/enemy and animation state.
+ * @class
+ */
 export class ImageHub {
+	/** Animation frame paths for the playable character. */
 	static PEPE = {
 		WALKING: [
 			"./assets/img/character/walk-1.png",
@@ -58,6 +64,7 @@ export class ImageHub {
 			"assets/img/character/sleep-10.png",
 		],
 	};
+	/** Animation frame paths for the chicken enemy. */
 	static CHICKEN = {
 		WALKING: [
 			"./assets/img/enemies/gallina-1.png",
@@ -66,6 +73,7 @@ export class ImageHub {
 		],
 		DEAD: ["./assets/img/enemies/gallina-dead-1.png"],
 	};
+	/** Animation frame paths for the small chicken (Pollito) enemy. */
 	static POLLITO = {
 		WALKING: [
 			"./assets/img/enemies/pollito-1.png",
@@ -74,6 +82,7 @@ export class ImageHub {
 		],
 		DEAD: ["./assets/img/enemies/pollito-dead-1.png"],
 	};
+	/** Animation frame paths for the end boss. */
 	static ENDBOSS = {
 		DEAD: [
 			"./assets/img/enemies/boss-dead-1.png",
@@ -109,13 +118,6 @@ export class ImageHub {
 			"./assets/img/enemies/boss-attack-6.png",
 			"./assets/img/enemies/boss-attack-7.png",
 			"./assets/img/enemies/boss-attack-8.png",
-
-		],
-		EGG: [
-			"assets/img/egg/egg-1.png",
-			"assets/img/egg/egg-2.png",
-			"assets/img/egg/egg-3.png",
-			"assets/img/egg/egg-4.png",
-		],
+		]
 	};
 }

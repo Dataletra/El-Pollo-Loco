@@ -1,6 +1,14 @@
 import { StatusBar } from './status-bar.class.js';
 
+/**
+ * HUD bar showing how many bottles the character has collected.
+ * @class
+ */
 export class BottleBar extends StatusBar {
+	/**
+	 * @param {number} [x=10] - X-position of the Bottle bar.
+	 * @param {number} [y=105] - Y-position of the Bottle bar.
+	 */
 	constructor() {
 		super(
 			[
@@ -11,8 +19,8 @@ export class BottleBar extends StatusBar {
 				"assets/img/bars/bottle-bar-2.png",
 				"assets/img/bars/bottle-bar-1.png",
 			],
-			10, // x
-			105, // y
+			10,
+			105,
 		);
 		this.loadImage("assets/img/bars/bottle-bar-1.png");
 	}

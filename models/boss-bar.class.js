@@ -1,5 +1,8 @@
 import { StatusBar } from './status-bar.class.js';
 
+/**
+ * Health bar shown for the end boss, positioned in the top-right HUD area.
+ */
 export class BossBar extends StatusBar {
 	constructor() {
 		super(

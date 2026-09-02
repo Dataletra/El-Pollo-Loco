@@ -1,6 +1,14 @@
 import { StatusBar } from './status-bar.class.js';
 
+/**
+ * HUD bar showing how many coins the character has collected.
+ * @class
+ */
 export class CoinBar extends StatusBar {
+	/**
+	 * @param {number} [x=10] - X-position of the Coin bar.
+	 * @param {number} [y=50] - Y-position of the Coin bar.
+	 */
 	constructor() {
 		super(
 			[

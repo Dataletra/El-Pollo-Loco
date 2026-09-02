@@ -1,3 +1,1 @@
-
-check checklist for javadoc
 https://jsdoc.app/about-getting-started

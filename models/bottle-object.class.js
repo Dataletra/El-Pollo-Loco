@@ -1,10 +1,15 @@
 import { CollectableObject } from './collectable-object.class.js';
 
+/**
+ * A collectable bottle placed at a random position in the level,
+ * using one of two random image variants decided at creation of Object.
+ * @class
+ */
 export class Bottle extends CollectableObject {
-	static amount = 0;
 	height = 100;
 	width = 80;
 	y = 330;
+
 	constructor() {
 		super();
 		this.x = 200 + Math.random() * 1500;

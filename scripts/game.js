@@ -7,15 +7,21 @@ let canvas;
 let world;
 let startBtnRef;
 
+/**
+ * Grabs DOM references, hides the end screens, and calls the mobile control buttons. Runs once on script load.
+ */
 function init() {
 	canvas = document.getElementById("canvas");
 	startBtnRef = document.getElementById("start-btn");
 	document.getElementById('win-screen').classList.add('d-none');
 	document.getElementById('lose-screen').classList.add('d-none');
-
 	bindOverlayButtons();
 }
 
+/**
+ * Starts a new game: hides overlays, builds level, creates world,
+ * and plays the intro sound + background music. Called from the Start button.
+ */
 function startGame() {
 	document.getElementById("start-screen").classList.add("d-none");
 	document.getElementById('win-screen').classList.add('d-none');
@@ -27,6 +33,10 @@ function startGame() {
 	AudioHub.playOne(AudioHub.GAME_MUSIC);
 }
 
+/**
+ * Toggles global mute: when muting, stops all sounds.
+ * When unmuting: plays background music. Also updates the mute button's css classes.
+ */
 function toggleMuteGame() {
 	if (MyAudio.isMuted) {
 		MyAudio.isMuted = false;
@@ -41,6 +51,11 @@ function toggleMuteGame() {
 		MyAudio.isMuted = true;
 	}
 }
+
+/**
+ *  set the matching Keyboard booleans based on what button is pressed.
+ *  Only relevant for mobile users.
+ */
 function bindOverlayButtons() {
 	const mobileButtons = [
 		{ id: 'left', property: 'LEFT' },
@@ -57,6 +72,9 @@ function bindOverlayButtons() {
 	});
 }
 
+/**
+ *  set the matching Keyboard booleans if key is pressed.
+ */
 window.addEventListener("keydown", (e) => {
 	switch (e.key) {
 		case "ArrowLeft":
@@ -77,6 +95,9 @@ window.addEventListener("keydown", (e) => {
 	}
 });
 
+/**
+ *  set the matching Keyboard booleans if key is lifted.
+ */
 window.addEventListener("keyup", (e) => {
 	switch (e.key) {
 		case "ArrowLeft":
@@ -97,8 +118,6 @@ window.addEventListener("keyup", (e) => {
 	}
 });
 
-// Index.html calls startGame() via inline onclick="" attributes. Module-scope
-// functions aren't visible to inline handlers, so it's exposed here explicitly.
 window.startGame = startGame;
 window.toggleMuteGame = toggleMuteGame;
 

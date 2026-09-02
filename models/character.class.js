@@ -4,10 +4,17 @@ import { Keyboard } from './keyboard.class.js';
 import { AudioHub } from './AudioHub.class.js';
 import { IntervalHub } from '../scripts/IntervalHub.js';
 
+/**
+ * The playable character. Handles movement, animation state (idle, walk,
+ * jump, hurt, dead, sleeping) and the sounds that go with each state.
+ * @class
+ */
 export class Character extends MovableObject {
 	height = 280;
 	y = 150;
+	/** Timestamp (ms) of the last player input, used to trigger the sleep animation. */
 	lastInput = 0;
+	/** Reference to the World instance, set externally. */
 	world;
 	deathSoundPlayed = false;
 	isRunning = false;
@@ -35,6 +42,10 @@ export class Character extends MovableObject {
 		this.lastInput = new Date().getTime();
 	}
 
+	/**
+	 * Reads keyboard state and moves/jumps the character each frame,
+	 * then keeps the camera and running sound in sync.
+	 */
 	updateMovement = () => {
 		if (Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
 			this.moveRight();
@@ -48,26 +59,25 @@ export class Character extends MovableObject {
 		this.updateWalkingSound();
 	};
 
+	/**
+	 * Picks and plays the correct animation state based on the character's
+	 * current situation (dead, hurt, jumping, walking, throwing, sleeping, idle).
+	 */
 	updateAnimation = () => {
-		let currentTime = new Date().getTime();
-		let timePassed = currentTime - this.lastInput;
-		if (this.isDead()) {
-			this.handleDeadState(currentTime);
-		} else if (this.isHurt()) {
-			this.handleHurtState(currentTime);
-		} else if (this.isAboveGround()) {
-			this.handleJumpState(currentTime);
-		} else if (Keyboard.RIGHT || Keyboard.LEFT) {
-			this.handleWalkState(currentTime);
-		} else if (Keyboard.SPACE) {
-			this.handleThrowState(currentTime);
-		} else if (timePassed > 5000) {
-			this.handleSleepState();
-		} else {
-			this.handleIdleState();
-		}
+		let now = Date.now();
+		if (this.isDead()) return this.handleDeadState(now);
+		if (this.isHurt()) return this.handleHurtState(now);
+		if (this.isAboveGround()) return this.handleJumpState(now);
+		if (Keyboard.RIGHT || Keyboard.LEFT) return this.handleWalkState(now);
+		if (Keyboard.SPACE) return this.handleThrowState(now);
+		if (now - this.lastInput > 5000) return this.handleSleepState();
+		this.handleIdleState();
 	};
 
+	/**
+	 * Plays the death animation and death sound once.
+	 * @param {number} currentTime
+	 */
 	handleDeadState(currentTime) {
 		this.stopSnoring();
 		this.playAnimation(ImageHub.PEPE.DEAD);
@@ -80,29 +90,52 @@ export class Character extends MovableObject {
 		}
 	}
 
+	/**
+	 * Plays the hurt animation.
+	 * Also resets the idle timer.
+	 * @param {number} currentTime
+	 */
 	handleHurtState(currentTime) {
 		this.stopSnoring();
 		this.playAnimation(ImageHub.PEPE.HURT);
 		this.lastInput = currentTime;
 	}
 
+	/**
+	 * Plays the jump animation.
+	 * Also resets the idle timer.
+	 * @param {number} currentTime
+	 */
 	handleJumpState(currentTime) {
 		this.stopSnoring();
 		this.playAnimation(ImageHub.PEPE.JUMP);
 		this.lastInput = currentTime;
 	}
 
+	/**
+	 *  Plays the walking animation.
+	 * 	Also resets the idle timer.
+	 * @param {number} currentTime
+	 */
 	handleWalkState(currentTime) {
 		this.stopSnoring();
 		this.playAnimation(ImageHub.PEPE.WALKING);
 		this.lastInput = currentTime;
 	}
 
+	/**
+	 * Resets the idle timer while the character is throwing a bottle.
+	 * @param {number} currentTime
+	 */
 	handleThrowState(currentTime) {
 		this.stopSnoring();
 		this.lastInput = currentTime;
 	}
 
+	/**
+	 * Plays the sleeping animation and starts the looping snore sound
+	 * the first time this state is entered.
+	 */
 	handleSleepState() {
 		this.playAnimation(ImageHub.PEPE.SLEEPING);
 		if (!this.isSleeping) {
@@ -112,11 +145,17 @@ export class Character extends MovableObject {
 		}
 	}
 
+	/**
+	 * Plays the idle animation.
+	 */
 	handleIdleState() {
 		this.stopSnoring();
 		this.playAnimation(ImageHub.PEPE.IDLE);
 	}
 
+	/**
+	 * Stops the snoring sound if it is currently playing.
+	 */
 	stopSnoring() {
 		if (this.isSleeping) {
 			this.isSleeping = false;
@@ -124,6 +163,10 @@ export class Character extends MovableObject {
 		}
 	};
 
+	/**
+	 * Starts / stops the running sound based on whether the character
+	 * is currently walking on the ground.
+	 */
 	updateWalkingSound() {
 		let isMoving = (Keyboard.RIGHT || Keyboard.LEFT) && !this.isAboveGround() && !this.isDead();
 		if (isMoving && !this.isRunning) {
@@ -136,11 +179,17 @@ export class Character extends MovableObject {
 		}
 	}
 
+	/**
+	 * Starts the movement and animation update intervals.
+	 */
 	animate() {
 		IntervalHub.startInterval(this.updateMovement, 1000 / 60);
 		IntervalHub.startInterval(this.updateAnimation, 100);
 	}
 
+	/**
+	 * Makes the character jump and plays the jump sound.
+	 */
 	jump() {
 		this.speedY = 30;
 		AudioHub.playOne(AudioHub.CHARACTER_JUMP);

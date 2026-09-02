@@ -1,7 +1,10 @@
 import { CollectableObject } from './collectable-object.class.js';
 
+/**
+ * A collectable coin placed at a random position in the level.
+ * @class
+ */
 export class Coin extends CollectableObject {
-	static amount = 0;
 
 	constructor() {
 		super();

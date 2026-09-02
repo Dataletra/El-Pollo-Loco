@@ -3,6 +3,11 @@ import { ImageHub } from './imageHub.class.js';
 import { AudioHub } from './AudioHub.class.js';
 import { IntervalHub } from '../scripts/IntervalHub.js';
 
+/**
+ * A smaller enemy variant of the chicken. Moves left
+ * continuously until killed, then plays its death animation and sound once.
+ * @class
+ */
 export class Pollito extends MovableObject {
 	y = 390;
 	height = 40;
@@ -20,12 +25,19 @@ export class Pollito extends MovableObject {
 		this.animate();
 	}
 
+	/**
+	 * Moves the chicken left each frame while it's alive.
+	 */
 	updateMovement = () => {
 		if (!this.isDead()) {
 			this.x -= this.speed;
 		}
 	};
 
+	/**
+	 * Plays the walking animation, or the death animation and sound
+	 * (once) once the chicken has been killed.
+	 */
 	updateAnimation = () => {
 		if (this.isDead()) {
 			this.playAnimation(ImageHub.POLLITO.DEAD);
@@ -38,6 +50,9 @@ export class Pollito extends MovableObject {
 		}
 	};
 
+	/**
+	 * Starts the movement and animation update intervals.
+	 */
 	animate() {
 		IntervalHub.startInterval(this.updateMovement, 1000 / 60);
 		IntervalHub.startInterval(this.updateAnimation, 100);

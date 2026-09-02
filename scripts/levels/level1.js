@@ -7,8 +7,15 @@ import { Cloud } from '../../models/cloud.class.js';
 import { Bottle } from '../../models/bottle-object.class.js';
 import { Coin } from '../../models/coin-object.class.js';
 
+/** The active Level instance, built by initLevel().
+ * @class
+ */
 export let level1;
 
+/**
+ * Builds level 1: resets background tiling,  creates enemies, clouds, background tiles, bottles, coins
+ * and assigns the result to `level1`. Call this before starting/restarting a game.
+ */
 export function initLevel() {
 	BackgroundObject.reset();
 	level1 = new Level(
