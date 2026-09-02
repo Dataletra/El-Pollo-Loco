@@ -3,12 +3,17 @@ increase map distance (background more backwards and forwards)
 add more enemies
 have bottles spawn periodically? (only if boss health will be much more)
 
-add background music -> Missing assets
+add background music -> add our own
+
 
 make start game button responsive
 !!NO FULLSCREEN MODE!!
 
 tutorial (pictures)
+
+Favicon
+different font for title
+button cursor pointer
 
 check checklist for javadoc
 https://jsdoc.app/about-getting-started

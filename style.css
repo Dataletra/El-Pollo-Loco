@@ -33,7 +33,17 @@ h1 {
 	background-color: black;
 	display: block;
 }
-
+.audio-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10;
+}
 .start-container {
 	position: absolute;
 	top: 0;
@@ -54,6 +64,36 @@ h1 {
 	height: 100%;
 	object-fit: cover;
 	z-index: 1;
+}
+
+.mute-button {
+	position: absolute;
+	top: 12%;
+	right: 8px;
+	z-index: 30;
+	padding: 5px 10px;
+	font-size: 12px;
+	font-weight: bold;
+	color: white;
+	background-color: black;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+	transition:
+		transform 0.1s ease,
+		background-color 0.2s;
+}
+
+.green-text {
+	color: green;
+}
+.red-text {
+	color: red;
+}
+.mute-button:hover {
+	background-color: red;
+	transform: scale(1.05);
 }
 
 .start-button {

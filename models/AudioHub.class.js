@@ -1,7 +1,9 @@
-class MyAudio {
+export class MyAudio {
 	file;
 	isLoaded;
 	isCurrentlyPlaying = false;
+	customVolume = 0.3;
+	static isMuted = false;
 
 	constructor(_file) {
 		this.file = new Audio(_file);
@@ -12,7 +14,7 @@ class MyAudio {
 }
 
 
-export class AudioHub {
+export class AudioHub extends MyAudio {
 	static CHARACTER_DAMAGE = new MyAudio('./assets/sounds/character/characterDamage.mp3');
 	static CHARACTER_DEAD = new MyAudio('./assets/sounds/character/characterDead.wav');
 	static CHARACTER_JUMP = new MyAudio('./assets/sounds/character/characterJump.wav');
@@ -52,7 +54,11 @@ export class AudioHub {
 		sound.file.currentTime = 0;
 		if (sound.file.readyState > 0 || sound.isLoaded) {
 
-			sound.file.volume = 0.1;
+			if (MyAudio.isMuted) {
+				sound.file.volume = 0;
+			} else {
+				sound.file.volume = sound.customVolume;
+			}
 			sound.isLoaded = true;
 			sound.file.play();
 			sound.file.isCurrentlyPlaying = true;

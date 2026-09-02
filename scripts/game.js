@@ -1,5 +1,5 @@
 import { World } from '../models/world.class.js';
-import { AudioHub } from '../models/AudioHub.class.js';
+import { AudioHub, MyAudio } from '../models/AudioHub.class.js';
 import { Keyboard } from '../models/keyboard.class.js';
 import { initLevel } from './levels/level1.js';
 
@@ -26,6 +26,19 @@ function startGame() {
 	AudioHub.playOne(AudioHub.GAME_START);
 }
 
+function toggleMuteGame() {
+	if (MyAudio.isMuted) {
+		MyAudio.isMuted = false;
+		document.getElementById('mute-btn').classList.add('red-text');
+		document.getElementById('mute-btn').classList.remove('green-text');
+	} else {
+		document.getElementById('mute-btn').classList.add('green-text');
+		document.getElementById('mute-btn').classList.remove('red-text');
+		MyAudio.isMuted = true;
+	}
+	console.log(MyAudio.isMuted);
+
+}
 function bindOverlayButtons() {
 	const mobileButtons = [
 		{ id: 'left', property: 'LEFT' },
@@ -85,5 +98,6 @@ window.addEventListener("keyup", (e) => {
 // Index.html calls startGame() via inline onclick="" attributes. Module-scope
 // functions aren't visible to inline handlers, so it's exposed here explicitly.
 window.startGame = startGame;
+window.toggleMuteGame = toggleMuteGame;
 
 init();

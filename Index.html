@@ -11,18 +11,18 @@
 		<h1>El Pollo Loco</h1>
 
 		<div class="game-container">
+			<button id="mute-btn" class="mute-button" onclick="toggleMuteGame()">mute</button>
 			<div class="controls-overlay">
 				<div class="dpad">
 					<button id="up" class="btn">▲</button>
 					<div class="dpad-row">
 						<button id="left" class="btn">◄</button>
-						<button id="attack" class="btn action-btn">A</button>
 						<button id="right" class="btn">►</button>
 					</div>
 				</div>
+				<button id="attack" class="btn action-btn">A</button>
 			</div>
 			<canvas id="canvas" width="720" height="480"></canvas>
-
 			<div id="start-screen" class="start-container">
 				<img
 					class="start-screen-img"
