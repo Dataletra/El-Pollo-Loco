@@ -69,7 +69,7 @@ export class Endboss extends MovableObject {
 			this.isAlerting = true;
 			this.alertCounter = 0;
 		}
-		this.world.level.level_end_x = this.x - 90;
+		this.world.level.level_end_x = this.x - 30;
 	};
 
 	/**
