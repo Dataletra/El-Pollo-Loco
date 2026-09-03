@@ -38,7 +38,7 @@ export class MovableObject extends DrawableObject {
 	 * limiting hit points at 0.
 	 */
 	hit() {
-		this.hitPoints -= 19;
+		this.hitPoints -= 20;
 		if (this.hitPoints < 0) {
 			this.hitPoints = 0;
 		} else {
