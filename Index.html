@@ -24,6 +24,9 @@
 				<button id="attack" class="btn action-btn">A</button>
 			</div>
 			<canvas id="canvas" width="720" height="480"></canvas>
+			<div class="rotate-device-notice">
+				<p>Please rotate your device to landscape mode.</p>
+			</div>
 			<div id="start-screen" class="start-container">
 				<img
 					class="start-screen-img"
@@ -35,11 +38,14 @@
 			<div id="win-screen" class="start-container">
 				<img class="start-screen-img" src="./assets/img/Intro_Outro_scenes/You Win A.png" alt="Start Screen" />
 				<button id="start-btn" class="start-button" onclick="startGame()">Start Game</button>
+				<button id="start-btn" class="menu-button" onclick="mainMenu()">Main Menu</button>
 			</div>
 			<div id="lose-screen" class="start-container">
 				<img class="start-screen-img" src="./assets/img/Intro_Outro_scenes/game_over.png" alt="Start Screen" />
 				<button id="start-btn" class="start-button" onclick="startGame()">Start Game</button>
+				<button id="start-btn" class="menu-button" onclick="mainMenu()">Main Menu</button>
 			</div>
 		</div>
+		<a href="./impressum.html">Impressum</a>
 	</body>
 </html>

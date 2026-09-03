@@ -33,6 +33,15 @@ function startGame() {
 	AudioHub.playOne(AudioHub.GAME_MUSIC);
 }
 
+function mainMenu() {
+	document.getElementById('win-screen').classList.add('d-none');
+	document.getElementById('lose-screen').classList.add('d-none');
+	document.getElementById("start-screen").classList.remove("d-none");
+	startBtnRef.classList.remove('d-none');
+	AudioHub.stopAll();
+
+}
+
 /**
  * Toggles global mute: when muting, stops all sounds.
  * When unmuting: plays background music. Also updates the mute button's css classes.
@@ -119,5 +128,6 @@ window.addEventListener("keyup", (e) => {
 
 window.startGame = startGame;
 window.toggleMuteGame = toggleMuteGame;
+window.mainMenu = mainMenu;
 
 init();
