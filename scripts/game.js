@@ -51,7 +51,10 @@ function toggleMuteGame() {
 		MyAudio.isMuted = false;
 		document.getElementById('mute-btn').classList.add('red-text');
 		document.getElementById('mute-btn').classList.remove('green-text');
-		AudioHub.playOne(AudioHub.GAME_MUSIC);
+		if (typeof world !== 'undefined' && world && !world.gameOver) {
+			AudioHub.playOne(AudioHub.GAME_MUSIC);
+		}
+
 
 	} else {
 		document.getElementById('mute-btn').classList.add('green-text');
