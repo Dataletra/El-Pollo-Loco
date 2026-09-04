@@ -55,7 +55,6 @@ function toggleMuteGame() {
 			AudioHub.playOne(AudioHub.GAME_MUSIC);
 		}
 
-
 	} else {
 		document.getElementById('mute-btn').classList.add('green-text');
 		document.getElementById('mute-btn').classList.remove('red-text');
@@ -78,8 +77,9 @@ function bindOverlayButtons() {
 
 	mobileButtons.forEach(({ id, property }) => {
 		const btn = document.getElementById(id);
-		btn.addEventListener('touchstart', () => { Keyboard[property] = true; });
-		btn.addEventListener('touchend', () => { Keyboard[property] = false; });
+		if (!btn) return;
+		btn.addEventListener('touchstart', (e) => { e.preventDefault(); Keyboard[property] = true; });
+		btn.addEventListener('touchend', (e) => { e.preventDefault(); Keyboard[property] = false; });
 	});
 }
 
