@@ -20,7 +20,7 @@ export class Character extends MovableObject {
 	isRunning = false;
 	isSleeping = false;
 	offset = {
-		top: 120,
+		top: 125,
 		right: 10,
 		bottom: 0,
 		left: 15,
