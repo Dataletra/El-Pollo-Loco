@@ -9,6 +9,7 @@ let startBtnRef;
 
 /**
  * Grabs DOM references, hides the end screens, and calls the mobile control buttons. Runs once on script load.
+ * Also updates MyAudio.isMuted static boolean based on local storage for persistence 
  */
 function init() {
 	canvas = document.getElementById("canvas");
@@ -16,6 +17,8 @@ function init() {
 	document.getElementById('win-screen').classList.add('d-none');
 	document.getElementById('lose-screen').classList.add('d-none');
 	bindOverlayButtons();
+	MyAudio.isMuted = localStorage.getItem('isMuted') === 'true';
+	updateMuteUI();
 }
 
 /**
@@ -44,22 +47,29 @@ function mainMenu() {
 
 /**
  * Toggles global mute: when muting, stops all sounds.
- * When unmuting: plays background music. Also updates the mute button's css classes.
+ * When unmuting: plays background music.
+ * Also updates local storage
  */
 function toggleMuteGame() {
-	if (MyAudio.isMuted) {
-		MyAudio.isMuted = false;
-		document.getElementById('mute-btn').classList.add('red-text');
-		document.getElementById('mute-btn').classList.remove('green-text');
-		if (typeof world !== 'undefined' && world && !world.gameOver) {
-			AudioHub.playOne(AudioHub.GAME_MUSIC);
-		}
+	MyAudio.isMuted = !MyAudio.isMuted;
+	localStorage.setItem('isMuted', MyAudio.isMuted);
+	updateMuteUI();
 
-	} else {
-		document.getElementById('mute-btn').classList.add('green-text');
-		document.getElementById('mute-btn').classList.remove('red-text');
+	if (MyAudio.isMuted) {
 		AudioHub.stopAll();
-		MyAudio.isMuted = true;
+	} else if (world?.gameOver === false) {
+		AudioHub.playOne(AudioHub.GAME_MUSIC);
+	}
+}
+/**
+ * Updates the UI based on MyAudios.isMuted static boolean
+ */
+function updateMuteUI() {
+	const isMuted = MyAudio.isMuted;
+	const btn = document.getElementById('mute-btn');
+	if (btn) {
+		btn.classList.toggle('green-text', isMuted);
+		btn.classList.toggle('red-text', !isMuted);
 	}
 }
 
@@ -78,8 +88,14 @@ function bindOverlayButtons() {
 	mobileButtons.forEach(({ id, property }) => {
 		const btn = document.getElementById(id);
 		if (!btn) return;
-		btn.addEventListener('touchstart', (e) => { e.preventDefault(); Keyboard[property] = true; });
-		btn.addEventListener('touchend', (e) => { e.preventDefault(); Keyboard[property] = false; });
+
+		const handleTouch = (e, state) => {
+			if (e.cancelable) e.preventDefault();
+			Keyboard[property] = state;
+		};
+
+		btn.addEventListener('touchstart', (e) => handleTouch(e, true), { passive: false });
+		btn.addEventListener('touchend', (e) => handleTouch(e, false), { passive: false });
 	});
 }
 
